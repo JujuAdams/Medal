@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"MedalLocalGetUsing",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"MedalLocalGetUsing",
+  "parent":{
+    "name":"Local",
+    "path":"folders/Medal/Local.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

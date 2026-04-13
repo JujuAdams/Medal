@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"__MedalConstants",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__MedalConstants",
+  "parent":{
+    "name":"Medal",
+    "path":"folders/Medal.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

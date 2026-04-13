@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"__MedalTrace",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__MedalTrace",
+  "parent":{
+    "name":"(System)",
+    "path":"folders/Medal/(System).yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

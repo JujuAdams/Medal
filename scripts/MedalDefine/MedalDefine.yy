@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"MedalDefine",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"MedalDefine",
+  "parent":{
+    "name":"Medal",
+    "path":"folders/Medal.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

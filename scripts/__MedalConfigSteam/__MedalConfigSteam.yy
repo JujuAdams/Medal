@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"__MedalConfigSteam",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__MedalConfigSteam",
+  "parent":{
+    "name":"Configuration",
+    "path":"folders/Medal/Configuration.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
