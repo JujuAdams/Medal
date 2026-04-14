@@ -54,11 +54,39 @@ function MedalAward(_medalIndex)
         }
         else if (os_type == os_ps5)
         {
-            //TODO
+            if (_system.__psGamepad < 0)
+            {
+                if (MEDAL_RUNNING_FROM_IDE)
+                {
+                    __MedalError("PlayStation gamepad not set or invalid. Please set the gamepad with `MedalSetPSGamepad()` before calling `MedalAward()`");
+                }
+                else
+                {
+                    __MedalTrace($"Warning! PlayStation gamepad not set or invalid");
+                }
+            }
+            else
+            {
+                psn_unlock_trophy(_system.__psGamepad, _ref);
+            }
         }
         else if (os_type == os_xboxseriesxs)
         {
-            //TODO
+            if (_system.__xboxUser <= 0)
+            {
+                if (MEDAL_RUNNING_FROM_IDE)
+                {
+                    __MedalError("Xbox user not set or invalid. Please set the user with `MedalSetXboxUser()` before calling `MedalAward()`");
+                }
+                else
+                {
+                    __MedalTrace($"Warning! Xbox user not set or invalid");
+                }
+            }
+            else
+            {
+                xboxone_achievements_set_progress(_system.__xboxUser, _ref, 100);
+            }
         }
         else
         {

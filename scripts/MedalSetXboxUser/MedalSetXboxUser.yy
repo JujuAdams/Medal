@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"MedalSetXboxUser",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"MedalSetXboxUser",
+  "parent":{
+    "name":"Platform-Specific",
+    "path":"folders/Medal/Platform-Specific.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -19,6 +19,9 @@ function __MedalSystem()
         __localChanged = false;
         __localData = {};
         
+        __psGamepad = -1;
+        __xboxUser = pointer_null;
+        
         __medalToRefMap = ds_map_create();
         
         try
