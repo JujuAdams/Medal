@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"MedalGetPSGamepad",
+  "%Name":"MedalLbFind",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"MedalGetPSGamepad",
+  "name":"MedalLbFind",
   "parent":{
-    "name":"PlayStation 5",
-    "path":"folders/Medal/PlayStation 5.yy",
+    "name":"Leaderboards",
+    "path":"folders/Medal/Leaderboards.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

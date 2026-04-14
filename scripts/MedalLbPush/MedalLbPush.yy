@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"MedalGetPSGamepad",
+  "%Name":"MedalLbPush",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"MedalGetPSGamepad",
+  "name":"MedalLbPush",
   "parent":{
-    "name":"PlayStation 5",
-    "path":"folders/Medal/PlayStation 5.yy",
+    "name":"Leaderboards",
+    "path":"folders/Medal/Leaderboards.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

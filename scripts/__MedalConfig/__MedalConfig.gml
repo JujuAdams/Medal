@@ -16,3 +16,5 @@ enum MEDAL_ACH
 /// Whether to force use of local data storage. This will ignore any remote or per-platform
 /// services.
 #macro MEDAL_FORCE_LOCAL_DATA  false
+
+#macro MEDAL_REFRESH_OFFSET  60 //minutes

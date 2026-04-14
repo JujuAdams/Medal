@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"MedalSetPSGamepad",
   "parent":{
-    "name":"Platform-Specific",
-    "path":"folders/Medal/Platform-Specific.yy",
+    "name":"PlayStation 5",
+    "path":"folders/Medal/PlayStation 5.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

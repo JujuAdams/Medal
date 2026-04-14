@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"MedalGetPSGamepad",
+  "%Name":"MedalPSActivityEnd",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"MedalGetPSGamepad",
+  "name":"MedalPSActivityEnd",
   "parent":{
     "name":"PlayStation 5",
     "path":"folders/Medal/PlayStation 5.yy",

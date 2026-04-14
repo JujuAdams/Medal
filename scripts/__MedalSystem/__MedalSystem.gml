@@ -1,4 +1,4 @@
-__MedalSystem();
+MedalSystem();
 
 function __MedalSystem()
 {
@@ -25,6 +25,8 @@ function __MedalSystem()
         __xboxUser = int64(0);
         
         __medalToRefMap = ds_map_create();
+        __leaderboardDict = {};
+        __serviceRefToLeaderboardMap = ds_map_create();
         
         __steamAvailable        = false;
         __playServicesAvailable = false;
