@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"MedalAchUnlock",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"MedalAchUnlock",
+  "parent":{
+    "name":"Achievements",
+    "path":"folders/Medal/Achievements.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

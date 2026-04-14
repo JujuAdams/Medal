@@ -1,0 +1,1 @@
+MedalSetPSGamepad(0);

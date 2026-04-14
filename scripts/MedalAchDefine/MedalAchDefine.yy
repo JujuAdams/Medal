@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"MedalAchDefine",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"MedalAchDefine",
+  "parent":{
+    "name":"Achievements",
+    "path":"folders/Medal/Achievements.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
