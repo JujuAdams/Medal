@@ -1,4 +1,4 @@
-function __MedalLeaderboardsSteam()
+function __MedalLeaderboardsPlayServices()
 {
     MedalLbCreate("all time score", "all time score");
     MedalLbCreate("best time", "best time", false);

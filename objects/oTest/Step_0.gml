@@ -1,4 +1,5 @@
 psn_tick();
+steam_update();
 
 var _i = 0;
 repeat(gamepad_get_device_count())

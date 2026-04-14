@@ -5,6 +5,20 @@ function __MedalRegisterAsyncID(_asyncID, _callbackFunction)
 {
     static _asyncIDMap = __MedalSystem().__asyncIDMap;
     
+    if (_asyncID == undefined)
+    {
+        if (MEDAL_RUNNING_FROM_IDE)
+        {
+            __MedalError("Async ID must be an integer. Please report this error");
+        }
+        else
+        {
+            __MedalTrace("Warning! Async ID must be an integer");
+        }
+        
+        return;
+    }
+    
     if (not is_callable(_callbackFunction))
     {
         if (MEDAL_RUNNING_FROM_IDE)

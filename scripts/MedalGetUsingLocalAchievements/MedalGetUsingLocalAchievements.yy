@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"MedalGetUsingLocalData",
+  "%Name":"MedalGetUsingLocalAchievements",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"MedalGetUsingLocalData",
+  "name":"MedalGetUsingLocalAchievements",
   "parent":{
     "name":"Local Data",
     "path":"folders/Medal/Local Data.yy",

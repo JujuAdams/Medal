@@ -101,7 +101,7 @@ function MedalAchUnlock(_medalIndex)
                 xboxone_achievements_set_progress(_system.__xboxUser, _ref, 100);
             }
         }
-        else if (os_type == os_ps5)
+        else if (MEDAL_ON_PS5)
         {
             if (_system.__psGamepad < 0)
             {

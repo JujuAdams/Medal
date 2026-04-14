@@ -25,6 +25,32 @@ function __MedalClassLeaderboard(_name, _serviceRef, _higherValueIsBetter = true
         {
             steam_upload_score(__GetFormattedServiceRef(), _value);
         }
+        else if (MEDAL_USING_GAMECENTER)
+        {
+            GameCenter_Leaderboard_Submit(__GetFormattedServiceRef(), _value, 0);
+        }
+        else if (_system.__playServicesAvailable)
+        {
+            GooglePlayServices_Leaderboard_SubmitScore(GetFormattedServiceRef(), _value, "");
+        }
+        else if (MEDAL_ON_PS5)
+        {
+            if (_system.__psGamepad < 0)
+            {
+                if (MEDAL_RUNNING_FROM_IDE)
+                {
+                    __MedalError("PlayStation gamepad not set or invalid. Please set the gamepad with `MedalSetPSGamepad()` before pushing leaderboard scores");
+                }
+                else
+                {
+                    __MedalTrace($"Warning! PlayStation gamepad not set or invalid");
+                }
+            }
+            else
+            {
+                psn_post_leaderboard_score(_system.__psGamepad, GetFormattedServiceRef(), _value);
+            }
+        }
         else
         {
             if (MEDAL_RUNNING_FROM_IDE)
@@ -54,7 +80,26 @@ function __MedalClassLeaderboard(_name, _serviceRef, _higherValueIsBetter = true
             return undefined;
         }
         
-        return __EnsureScoresStruct(__GetFormattedServiceRef(), _range).__GetScores();
+        return __EnsureScoresStruct(__GetFormattedServiceRef(), _range).__GetScoresContinuous();
+    }
+    
+    static Refresh = function(_range)
+    {
+        if ((_range != MEDAL_RANGE_TOP) && (_range != MEDAL_RANGE_FRIENDS) && (_range != MEDAL_RANGE_AROUND))
+        {
+            if (MEDAL_RUNNING_FROM_IDE)
+            {
+                __MedalError($"Unhandled range `{_range}`");
+            }
+            else
+            {
+                __MedalTrace($"Warning! Unhandled range `{_range}`");
+            }
+            
+            return undefined;
+        }
+        
+        return __EnsureScoresStruct(__GetFormattedServiceRef(), _range).__Refresh();
     }
     
     static GetState = function(_range)
@@ -100,7 +145,7 @@ function __MedalClassLeaderboard(_name, _serviceRef, _higherValueIsBetter = true
         var _struct = __scoresDict[$ _scoresID];
         if (not is_struct(_struct))
         {
-            _struct = new __MedalClassScores(_scoresID, __GetFormattedServiceRef(), _range);
+            _struct = new __MedalClassScores(_scoresID, _formattedServiceRef, _range, __refreshPeriod);
             __scoresDict[$ _scoresID] = _struct;
         }
         
