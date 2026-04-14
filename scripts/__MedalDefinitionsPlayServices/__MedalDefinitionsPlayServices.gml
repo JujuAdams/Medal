@@ -1,7 +1,7 @@
-/// This function is called on boot by Medal's system if the game is running on a desktop platform
-/// and the Steam SDK has initialized.
+/// This function is called on boot by Medal's system if the game is running on Android and the
+/// Google Play Services extension has initialised successfully.
 
-function __MedalConfigSteam()
+function __MedalDefinitionsPlayServices()
 {
     MedalDefine(MEDAL.SHINY_MACGUFFIN,          "achievement00");
     MedalDefine(MEDAL.SLAY_FIFTY_THOUSAND_RATS, "achievement01");

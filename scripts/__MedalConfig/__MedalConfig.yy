@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"__MedalConfigXbox",
+  "%Name":"__MedalConfig",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"__MedalConfigXbox",
+  "name":"__MedalConfig",
   "parent":{
-    "name":"Configuration",
-    "path":"folders/Medal/Configuration.yy",
+    "name":"Medal",
+    "path":"folders/Medal.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

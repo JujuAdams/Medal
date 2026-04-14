@@ -1,7 +1,7 @@
 /// This function is called on boot by Medal's system if the game is running on iOS and the
 /// GameCenter extension has initialised successfully.
 
-function __MedalConfigGameCenter()
+function __MedalDefinitionsGameCenter()
 {
     MedalDefine(MEDAL.SHINY_MACGUFFIN,          "achievement00");
     MedalDefine(MEDAL.SLAY_FIFTY_THOUSAND_RATS, "achievement01");

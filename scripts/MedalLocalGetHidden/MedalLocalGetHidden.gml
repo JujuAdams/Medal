@@ -1,3 +1,7 @@
+/// Returns whether the given achievement is hidden by default. This is useful when creating
+/// custom achievement systems and you'd like to label certain achievements as secret until they
+/// are unlocked.
+/// 
 /// @param medalIndex
 
 function MedalLocalGetHidden(_medalIndex)

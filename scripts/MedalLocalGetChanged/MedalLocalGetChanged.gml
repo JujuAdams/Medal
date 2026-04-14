@@ -1,3 +1,6 @@
+/// Returns whether the state of locally stored achievements has changed. If this function returns
+/// `true` then you should save achievements data using `MedalLocalExport()`.
+
 function MedalLocalGetChanged()
 {
     static _system = __MedalSystem();

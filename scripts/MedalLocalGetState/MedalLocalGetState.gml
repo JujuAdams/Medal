@@ -1,3 +1,5 @@
+/// Returns whether a locally stored achievement has been unlocked or not.
+/// 
 /// @param medalIndex
 
 function MedalLocalGetState(_medalIndex)

@@ -1,3 +1,6 @@
+/// Sets the state of locally stored achievements from a struct. The struct should have been
+/// created by `MedalLocalExport()`.
+/// 
 /// @param data
 
 function MedalLocalImport(_data)

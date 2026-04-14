@@ -1,6 +1,6 @@
 /// Returns if Medal is using locally stored achievement data. This will happen if your game is
-/// running on a platform without a native achievement system (e.g. Switch) or if you're running
-/// on desktop and the Steam SDK either isn't enabled or has not initialized correctly.
+/// running on a platform without a native achievement system (e.g. Switch) or if a required
+/// extension hasn't been installed.
 
 function MedalLocalGetUsing()
 {

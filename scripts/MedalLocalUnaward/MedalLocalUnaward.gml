@@ -1,3 +1,6 @@
+/// Locks an achievement that the player has previously unlocked. This only applies to locally
+/// stored achievements.
+/// 
 /// @param medalIndex
 
 function MedalLocalUnaward(_medalIndex)

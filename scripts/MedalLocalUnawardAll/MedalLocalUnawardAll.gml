@@ -1,3 +1,6 @@
+/// Locks all achievements. This only applies to locally stored achievements. This is helpful for
+/// testing.
+
 function MedalLocalUnawardAll()
 {
     static _system = __MedalSystem();

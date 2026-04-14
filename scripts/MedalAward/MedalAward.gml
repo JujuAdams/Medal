@@ -1,3 +1,13 @@
+/// Unlocks the achievement associated with the given medal index. You should first have defined
+/// the medal with `MedalDefine()` in the configuration scripts.
+/// 
+/// N.B. You must call `MedalSetPSGamepad()` or `MedalSetXboxUser()` before unlocking achievements
+///      on PlayStation or Xbox.
+/// 
+/// If locally stored achievements are being used (as indicated by `MedalLocalGetUsing()`) then
+/// this function will return `true` if an achievement is newly unlocked. This positive return
+/// value might be used to trigger an in-game notification etc.
+/// 
 /// @param medalIndex
 
 function MedalAward(_medalIndex)
@@ -17,7 +27,7 @@ function MedalAward(_medalIndex)
             __MedalTrace($"Warning! Medal index {_medalIndex} not recognised          {debug_get_callstack()}");
         }
         
-        return;
+        return false;
     }
     
     var _ref = _struct.__serviceRef;
@@ -35,6 +45,8 @@ function MedalAward(_medalIndex)
             
             _system.__localData[$ _ref] = true;
             _system.__localChanged = true;
+            
+            return true;
         }
         else
         {
@@ -108,4 +120,6 @@ function MedalAward(_medalIndex)
             }
         }
     }
+    
+    return false;
 }

@@ -3,7 +3,7 @@
 /// 
 /// N.B. You do not need to include your platinum trophy in this list.
 
-function __MedalConfigPlayStation()
+function __MedalDefinitionsPlayStation()
 {
     MedalDefine(MEDAL.SHINY_MACGUFFIN,          1);
     MedalDefine(MEDAL.SLAY_FIFTY_THOUSAND_RATS, 2);

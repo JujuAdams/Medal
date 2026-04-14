@@ -1,3 +1,5 @@
+/// Returns a struct containing the state of locally stored achievements.
+
 function MedalLocalExport()
 {
     static _system = __MedalSystem();

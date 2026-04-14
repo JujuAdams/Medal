@@ -32,12 +32,12 @@ function __MedalSystem()
         
         if (MEDAL_FORCE_LOCAL)
         {
-            __MedalTrace($"Forcing local data use via `MEDAL_FORCE_LOCAL`, using `__MedalConfigShared`");
+            __MedalTrace($"Forcing local data use via `MEDAL_FORCE_LOCAL`, using `__MedalDefinitionsLocal`");
             
             _fallback = false;
             
             __local = true;
-            __MedalConfigShared();
+            __MedalDefinitionsLocal();
         }
         else if ((os_type == os_windows) || (os_type == os_macosx) || (os_type == os_linux))
         {
@@ -78,7 +78,7 @@ function __MedalSystem()
                     
                     if (MEDAL_VERBOSE)
                     {
-                        __MedalTrace("Using Steam remote service with `__MedalConfigSteam`");
+                        __MedalTrace("Using Steam remote service with `__MedalDefinitionsSteam`");
                     }
                 }
                 else
@@ -94,7 +94,7 @@ function __MedalSystem()
                 }
                 
                 __local = false;
-                __MedalConfigSteam();
+                __MedalDefinitionsSteam();
             }
         }
         else if (os_type == os_ios)
@@ -137,7 +137,7 @@ function __MedalSystem()
                     
                     if (MEDAL_VERBOSE)
                     {
-                        __MedalTrace("Using GameCenter remote service with `__MedalConfigGameCenter`");
+                        __MedalTrace("Using GameCenter remote service with `__MedalDefinitionsGameCenter`");
                     }
                 }
                 else
@@ -153,7 +153,7 @@ function __MedalSystem()
                 }
                 
                 __local = false;
-                __MedalConfigGameCenter();
+                __MedalDefinitionsGameCenter();
             }
         }
         else if (os_type == os_android)
@@ -195,13 +195,13 @@ function __MedalSystem()
                     
                     if (MEDAL_VERBOSE)
                     {
-                        __MedalTrace("Using Googe Play Services with `__MedalConfigPlayServices`");
+                        __MedalTrace("Using Googe Play Services with `__MedalDefinitionsPlayServices`");
                     }
                     
                     _fallback = false;
                     
                     __local = false;
-                    __MedalConfigPlayServices();
+                    __MedalDefinitionsPlayServices();
                 }
                 else
                 {
@@ -213,54 +213,54 @@ function __MedalSystem()
         {
             if (MEDAL_VERBOSE)
             {
-                __MedalTrace("Using PlayStation remote service with `__MedalConfigShared`");
+                __MedalTrace("Using PlayStation remote service with `__MedalDefinitionsLocal`");
             }
             
             _fallback = false;
             
             __local = false;
-            __MedalConfigPlayStation();
+            __MedalDefinitionsPlayStation();
         }
         else if (os_type == os_xboxseriesxs)
         {
             if (MEDAL_VERBOSE)
             {
-                __MedalTrace("Using Xbox remote service with `__MedalConfigShared`");
+                __MedalTrace("Using Xbox remote service with `__MedalDefinitionsLocal`");
             }
             
             _fallback = false;
             
             __local = false;
-            __MedalConfigXbox();
+            __MedalDefinitionsXbox();
         }
         else if (os_type == os_switch)
         {
             if (MEDAL_VERBOSE)
             {
-                __MedalTrace("No remote service available on Switch, using locally stored data with `__MedalConfigShared`");
+                __MedalTrace("No remote service available on Switch, using locally stored data with `__MedalDefinitionsLocal`");
             }
             
             _fallback = false;
             
             __local = false;
-            __MedalConfigShared();
+            __MedalDefinitionsLocal();
         }
         else
         {          
-            __MedalTrace($"Platform ({os_type}) has no explicit support, falling back on locally stored data with `__MedalConfigShared`");
+            __MedalTrace($"Platform ({os_type}) has no explicit support, falling back on locally stored data with `__MedalDefinitionsLocal`");
             
             _fallback = false;
             
             __local = true;
-            __MedalConfigShared();
+            __MedalDefinitionsLocal();
         }
         
         if (_fallback)
         {
-            __MedalTrace($"Remote service not available, falling back on locally stored data with `__MedalConfigShared`");
+            __MedalTrace($"Remote service not available, falling back on locally stored data with `__MedalDefinitionsLocal`");
             
             __local = true;
-            __MedalConfigShared();
+            __MedalDefinitionsLocal();
         }
     }
     
