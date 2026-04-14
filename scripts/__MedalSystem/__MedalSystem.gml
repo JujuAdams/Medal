@@ -24,47 +24,58 @@ function __MedalSystem()
         
         __medalToRefMap = ds_map_create();
         
-        try
-        {
-            var _steamPresent = steam_initialized;
-        }
-        catch(_error)
-        {
-            var _steamPresent = false;
-        }
+        __steamAvailable        = false;
+        __gameCenterAvailable   = false;
+        __playServicesAvailable = false;
         
-        if (MEDAL_VERBOSE)
-        {
-            __MedalTrace(_steamPresent? "Steam SDK is present" : "Steam SDK is not present");
-        }
-        
-        try
-        {
-            __steamAvailable = steam_initialized();
-        }
-        catch(_error)
-        {
-            __steamAvailable = false;
-        }
-        
-        if ((os_type == os_windows) || (os_type == os_macosx) || (os_type == os_linux))
-        {
-            __MedalTrace(__steamAvailable? "Steam SDK is initialized and available" : "Steam SDK has not initialized successfully or is not present");
-        }
+        var _fallback = true;
         
         if (MEDAL_FORCE_LOCAL)
         {
-            __MedalTrace($"Forcing local data use, using `__MedalConfigShared`");
+            __MedalTrace($"Forcing local data use via `MEDAL_FORCE_LOCAL`, using `__MedalConfigShared`");
+            
+            _fallback = false;
             
             __local = true;
             __MedalConfigShared();
         }
         else if ((os_type == os_windows) || (os_type == os_macosx) || (os_type == os_linux))
         {
-            if (_steamPresent)
+            ///////
+            // Steam
+            ///////
+            
+            try
             {
+                var _steamPresent = steam_initialized;
+            }
+            catch(_error)
+            {
+                var _steamPresent = false;
+            }
+            
+            if (MEDAL_VERBOSE)
+            {
+                __MedalTrace(_steamPresent? "Steam extension is present" : "Steam extension is not present");
+            }
+            
+            if (_steamPresent)
+            { 
+                _fallback = false;
+                
+                try
+                {
+                    __steamAvailable = steam_initialized();
+                }
+                catch(_error)
+                {
+                    __steamAvailable = false;
+                }
+                
                 if (__steamAvailable)
                 {
+                    __MedalTrace("Steam extension is initialized and available");
+                    
                     if (MEDAL_VERBOSE)
                     {
                         __MedalTrace("Using Steam remote service with `__MedalConfigSteam`");
@@ -74,26 +85,128 @@ function __MedalSystem()
                 {
                     if (MEDAL_RUNNING_FROM_IDE)
                     {
-                        __MedalError("Steam SDK present in game but failed to initialize. Please check your Steam SDK settings");
+                        __MedalError("Steam extension present in game but failed to initialize. Please check your Steam extension settings");
                     }
                     else
                     {
-                        __MedalTrace("Warning! Steam SDK present in game but failed to initialize. Please check your Steam SDK settings");
+                        __MedalTrace("Warning! Steam extension present in game but failed to initialize. Please check your Steam extension settings");
                     }
                 }
                 
                 __local = false;
                 __MedalConfigSteam();
             }
-            else
+        }
+        else if (os_type == os_ios)
+        {
+            ///////
+            // GameCenter
+            ///////
+            
+            try
             {
-                if (MEDAL_VERBOSE)
+                var _gameCenterPresent = GameCenter_LocalPlayer_IsAuthenticated;
+            }
+            catch(_error)
+            {
+                var _gameCenterPresent = false;
+            }
+            
+            if (MEDAL_VERBOSE)
+            {
+                __MedalTrace(_gameCenterPresent? "GameCenter extension is present" : "GameCenter extension is not present");
+            }
+            
+            if (_gameCenterPresent)
+            {
+                _fallback = false;
+                
+                try
                 {
-                    __MedalTrace("Steam SDK not present, using locally stored data with `__MedalConfigShared`");
+                    GameCenter_LocalPlayer_IsAuthenticated(); //We don't care about the return value
+                    __gameCenterAvailable = true;
+                }
+                catch(_error)
+                {
+                    __gameCenterAvailable = false;
                 }
                 
-                __local = true;
-                __MedalConfigShared();
+                if (__gameCenterAvailable)
+                {
+                    __MedalTrace("GameCenter extension initialized and available");
+                    
+                    if (MEDAL_VERBOSE)
+                    {
+                        __MedalTrace("Using GameCenter remote service with `__MedalConfigGameCenter`");
+                    }
+                }
+                else
+                {
+                    if (MEDAL_RUNNING_FROM_IDE)
+                    {
+                        __MedalError("GameCenter extension present in game but failed to initialize. Please check your GameCenter extension settings");
+                    }
+                    else
+                    {
+                        __MedalTrace("Warning! GameCenter extension present in game but failed to initialize. Please check your GameCenter extension settings");
+                    }
+                }
+                
+                __local = false;
+                __MedalConfigGameCenter();
+            }
+        }
+        else if (os_type == os_android)
+        {
+            ///////
+            // Google Play Services
+            ///////
+            
+            try
+            {
+                var _playServicesPresent = GooglePlayServices_IsAvailable;
+            }
+            catch(_error)
+            {
+                var _playServicesPresent = false;
+            }
+            
+            if (MEDAL_VERBOSE)
+            {
+                __MedalTrace(_playServicesPresent? "Googe Play Services extension is present" : "Googe Play Services extension is not present");
+            }
+            
+            if (_playServicesPresent)
+            {
+                _fallback = false;
+                
+                try
+                {
+                    __playServicesAvailable = GooglePlayServices_IsAvailable();
+                }
+                catch(_error)
+                {
+                    __playServicesAvailable = false;
+                }
+                
+                if (__playServicesAvailable)
+                {
+                    __MedalTrace("Googe Play Services extension initialized and available");
+                    
+                    if (MEDAL_VERBOSE)
+                    {
+                        __MedalTrace("Using Googe Play Services with `__MedalConfigPlayServices`");
+                    }
+                    
+                    _fallback = false;
+                    
+                    __local = false;
+                    __MedalConfigPlayServices();
+                }
+                else
+                {
+                    __MedalTrace("Warning! Googe Play Services extension failed to initialize. Player may not have Google Play installed");
+                }
             }
         }
         else if (os_type == os_ps5)
@@ -102,6 +215,8 @@ function __MedalSystem()
             {
                 __MedalTrace("Using PlayStation remote service with `__MedalConfigShared`");
             }
+            
+            _fallback = false;
             
             __local = false;
             __MedalConfigPlayStation();
@@ -113,17 +228,36 @@ function __MedalSystem()
                 __MedalTrace("Using Xbox remote service with `__MedalConfigShared`");
             }
             
+            _fallback = false;
+            
             __local = false;
             __MedalConfigXbox();
         }
         else if (os_type == os_switch)
         {
+            if (MEDAL_VERBOSE)
+            {
+                __MedalTrace("No remote service available on Switch, using locally stored data with `__MedalConfigShared`");
+            }
+            
+            _fallback = false;
+            
             __local = false;
             __MedalConfigShared();
         }
         else
-        {
+        {          
             __MedalTrace($"Platform ({os_type}) has no explicit support, falling back on locally stored data with `__MedalConfigShared`");
+            
+            _fallback = false;
+            
+            __local = true;
+            __MedalConfigShared();
+        }
+        
+        if (_fallback)
+        {
+            __MedalTrace($"Remote service not available, falling back on locally stored data with `__MedalConfigShared`");
             
             __local = true;
             __MedalConfigShared();

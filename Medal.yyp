@@ -27,6 +27,8 @@
   "resources":[
     {"id":{"name":"oTest","path":"objects/oTest/oTest.yy",},},
     {"id":{"name":"rMain","path":"rooms/rMain/rMain.yy",},},
+    {"id":{"name":"__MedalConfigGameCenter","path":"scripts/__MedalConfigGameCenter/__MedalConfigGameCenter.yy",},},
+    {"id":{"name":"__MedalConfigPlayServices","path":"scripts/__MedalConfigPlayServices/__MedalConfigPlayServices.yy",},},
     {"id":{"name":"__MedalConfigPlayStation","path":"scripts/__MedalConfigPlayStation/__MedalConfigPlayStation.yy",},},
     {"id":{"name":"__MedalConfigShared","path":"scripts/__MedalConfigShared/__MedalConfigShared.yy",},},
     {"id":{"name":"__MedalConfigSteam","path":"scripts/__MedalConfigSteam/__MedalConfigSteam.yy",},},

@@ -52,6 +52,14 @@ function MedalAward(_medalIndex)
         {
             steam_set_achievement(_ref);
         }
+        else if (_system.__gameCenterAvailable)
+        {
+            GameCenter_Achievement_Report(_ref, 100, true);
+        }
+        else if (_system.__playServicesAvailable)
+        {
+            GooglePlayServices_Achievements_Unlock(_ref);
+        }
         else if (os_type == os_ps5)
         {
             if (_system.__psGamepad < 0)
