@@ -4,6 +4,9 @@
 /// N.B. You must call `MedalSetPSGamepad()` or `MedalSetXboxUser()` before unlocking achievements
 ///      on PlayStation or Xbox.
 /// 
+/// N.B. Medal does not call `gdk_init()`, `gdk_update()`, or `gdk_quit()` for you when running on
+///      Xbox. You must call these functions yourself.
+/// 
 /// If locally stored achievements are being used (as indicated by `MedalLocalGetUsing()`) then
 /// this function will return `true` if an achievement is newly unlocked. This positive return
 /// value might be used to trigger an in-game notification etc.
@@ -64,13 +67,31 @@ function MedalAward(_medalIndex)
         {
             steam_set_achievement(_ref);
         }
-        else if (_system.__gameCenterAvailable)
+        else if (MEDAL_USING_GAMECENTER)
         {
             GameCenter_Achievement_Report(_ref, 100, true);
         }
         else if (_system.__playServicesAvailable)
         {
             GooglePlayServices_Achievements_Unlock(_ref);
+        }
+        else if (MEDAL_USING_GDK)
+        {
+            if (_system.__xboxUser <= 0)
+            {
+                if (MEDAL_RUNNING_FROM_IDE)
+                {
+                    __MedalError("Xbox user not set or invalid. Please set the user with `MedalSetXboxUser()` before calling `MedalAward()`");
+                }
+                else
+                {
+                    __MedalTrace($"Warning! Xbox user not set or invalid");
+                }
+            }
+            else
+            {
+                xboxone_achievements_set_progress(_system.__xboxUser, _ref, 100);
+            }
         }
         else if (os_type == os_ps5)
         {
@@ -88,24 +109,6 @@ function MedalAward(_medalIndex)
             else
             {
                 psn_unlock_trophy(_system.__psGamepad, _ref);
-            }
-        }
-        else if (os_type == os_xboxseriesxs)
-        {
-            if (_system.__xboxUser <= 0)
-            {
-                if (MEDAL_RUNNING_FROM_IDE)
-                {
-                    __MedalError("Xbox user not set or invalid. Please set the user with `MedalSetXboxUser()` before calling `MedalAward()`");
-                }
-                else
-                {
-                    __MedalTrace($"Warning! Xbox user not set or invalid");
-                }
-            }
-            else
-            {
-                xboxone_achievements_set_progress(_system.__xboxUser, _ref, 100);
             }
         }
         else

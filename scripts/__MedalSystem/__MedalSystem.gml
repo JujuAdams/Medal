@@ -25,7 +25,6 @@ function __MedalSystem()
         __medalToRefMap = ds_map_create();
         
         __steamAvailable        = false;
-        __gameCenterAvailable   = false;
         __playServicesAvailable = false;
         
         var _fallback = true;
@@ -39,27 +38,33 @@ function __MedalSystem()
             __local = true;
             __MedalDefinitionsLocal();
         }
-        else if ((os_type == os_windows) || (os_type == os_macosx) || (os_type == os_linux))
+        else if (MEDAL_ON_DESKTOP)
         {
             ///////
             // Steam
             ///////
             
-            try
-            {
-                var _steamPresent = steam_initialized;
-            }
-            catch(_error)
-            {
-                var _steamPresent = false;
-            }
+            __MedalTrace(MEDAL_USING_STEAMWORKS? "Steam extension is present" : "Steam extension is not present");
+            __MedalTrace(MEDAL_USING_WINDOWS_GDK? "Windows GDK extension is present" : "Windows GDK extension is not present");
             
-            if (MEDAL_VERBOSE)
+            if (MEDAL_USING_WINDOWS_GDK)
             {
-                __MedalTrace(_steamPresent? "Steam extension is present" : "Steam extension is not present");
+                if (MEDAL_USING_STEAMWORKS)
+                {
+                    __MedalError("Cannot use Steam extension and Windows GDK extension together");
+                }
+                
+                if (MEDAL_VERBOSE)
+                {
+                    __MedalTrace("Using Xbox remote service with `__MedalDefinitionsXbox`");
+                }
+                
+                _fallback = false;
+                
+                __local = false;
+                __MedalDefinitionsXbox();
             }
-            
-            if (_steamPresent)
+            else if (MEDAL_USING_STEAMWORKS)
             { 
                 _fallback = false;
                 
@@ -97,87 +102,45 @@ function __MedalSystem()
                 __MedalDefinitionsSteam();
             }
         }
-        else if (os_type == os_ios)
+        else if (MEDAL_ON_IOS)
         {
             ///////
             // GameCenter
             ///////
             
-            try
+            if (not MEDAL_USING_GAMECENTER)
             {
-                var _gameCenterPresent = GameCenter_LocalPlayer_IsAuthenticated;
+                __MedalTrace("GameCenter extension is not present");
             }
-            catch(_error)
+            else
             {
-                var _gameCenterPresent = false;
-            }
-            
-            if (MEDAL_VERBOSE)
-            {
-                __MedalTrace(_gameCenterPresent? "GameCenter extension is present" : "GameCenter extension is not present");
-            }
-            
-            if (_gameCenterPresent)
-            {
+                __MedalTrace("GameCenter extension is present");
+                
                 _fallback = false;
                 
-                try
+                if (MEDAL_VERBOSE)
                 {
-                    GameCenter_LocalPlayer_IsAuthenticated(); //We don't care about the return value
-                    __gameCenterAvailable = true;
-                }
-                catch(_error)
-                {
-                    __gameCenterAvailable = false;
-                }
-                
-                if (__gameCenterAvailable)
-                {
-                    __MedalTrace("GameCenter extension initialized and available");
-                    
-                    if (MEDAL_VERBOSE)
-                    {
-                        __MedalTrace("Using GameCenter remote service with `__MedalDefinitionsGameCenter`");
-                    }
-                }
-                else
-                {
-                    if (MEDAL_RUNNING_FROM_IDE)
-                    {
-                        __MedalError("GameCenter extension present in game but failed to initialize. Please check your GameCenter extension settings");
-                    }
-                    else
-                    {
-                        __MedalTrace("Warning! GameCenter extension present in game but failed to initialize. Please check your GameCenter extension settings");
-                    }
+                    __MedalTrace("Using GameCenter remote service with `__MedalDefinitionsGameCenter`");
                 }
                 
                 __local = false;
                 __MedalDefinitionsGameCenter();
             }
         }
-        else if (os_type == os_android)
+        else if (MEDAL_ON_ANDROID)
         {
             ///////
             // Google Play Services
             ///////
             
-            try
+            if (not MEDAL_USING_PLAY_SERVICES)
             {
-                var _playServicesPresent = GooglePlayServices_IsAvailable;
+                __MedalTrace("Googe Play Services extension is not present");
             }
-            catch(_error)
+            else
             {
-                var _playServicesPresent = false;
-            }
-            
-            if (MEDAL_VERBOSE)
-            {
-                __MedalTrace(_playServicesPresent? "Googe Play Services extension is present" : "Googe Play Services extension is not present");
-            }
-            
-            if (_playServicesPresent)
-            {
+                __MedalTrace("Googe Play Services extension is present");
+                
                 _fallback = false;
                 
                 try
@@ -209,11 +172,11 @@ function __MedalSystem()
                 }
             }
         }
-        else if (os_type == os_ps5)
+        else if (MEDAL_ON_PS5)
         {
             if (MEDAL_VERBOSE)
             {
-                __MedalTrace("Using PlayStation remote service with `__MedalDefinitionsLocal`");
+                __MedalTrace("Using PlayStation remote service with `__MedalDefinitionsPlayStation`");
             }
             
             _fallback = false;
@@ -221,11 +184,11 @@ function __MedalSystem()
             __local = false;
             __MedalDefinitionsPlayStation();
         }
-        else if (os_type == os_xboxseriesxs)
+        else if (MEDAL_ON_XBOX_SERIES)
         {
             if (MEDAL_VERBOSE)
             {
-                __MedalTrace("Using Xbox remote service with `__MedalDefinitionsLocal`");
+                __MedalTrace("Using Xbox remote service with `__MedalDefinitionsXbox`");
             }
             
             _fallback = false;
@@ -233,7 +196,7 @@ function __MedalSystem()
             __local = false;
             __MedalDefinitionsXbox();
         }
-        else if (os_type == os_switch)
+        else if (MEDAL_ON_SWITCH)
         {
             if (MEDAL_VERBOSE)
             {
