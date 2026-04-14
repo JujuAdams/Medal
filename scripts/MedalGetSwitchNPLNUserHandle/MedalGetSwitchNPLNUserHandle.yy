@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"MedalGetSwitchNPLNUserHandle",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"MedalGetSwitchNPLNUserHandle",
+  "parent":{
+    "name":"Switch",
+    "path":"folders/Medal/Switch.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

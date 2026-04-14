@@ -51,6 +51,40 @@ function __MedalClassLeaderboard(_name, _serviceRef, _higherValueIsBetter = true
                 psn_post_leaderboard_score(_system.__psGamepad, GetFormattedServiceRef(), _value);
             }
         }
+        else if (MEDAL_USING_GDK)
+        {
+            if (_system.__xboxUser < 0)
+            {
+                if (MEDAL_RUNNING_FROM_IDE)
+                {
+                    __MedalError("Xbox user not set or invalid. Please set the gamepad with `MedalSetXboxUser()` before pushing leaderboard scores");
+                }
+                else
+                {
+                    __MedalTrace($"Warning! Xbox user not set or invalid");
+                }
+            }
+            else
+            {
+                xboxone_stats_set_stat_int(_system.__xboxUser, GetFormattedServiceRef(), _value);
+            }
+        }
+        else if (MEDAL_ON_SWITCH)
+        {
+            if (_system.__switchNPLNUserHandle == undefined)
+            {
+                if (MEDAL_RUNNING_FROM_IDE)
+                {
+                    __MedalError("Switch NPLN user handle not set or invalid. Please set the NPLN user handle with `MedalSetSwitchNPLNUserHandle()` before pushing leaderboard scores");
+                }
+                else
+                {
+                    __MedalTrace($"Warning! Switch NPLN user handle not set or invalid");
+                }
+            }
+            
+            switch_npln_leaderboard_set_score(_system.__switchNPLNUserHandle, __serviceRef.categoryTypeName, __serviceRef.categoryID, _value);
+        }
         else
         {
             if (MEDAL_RUNNING_FROM_IDE)

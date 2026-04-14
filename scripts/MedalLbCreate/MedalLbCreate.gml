@@ -1,3 +1,37 @@
+
+/// Exactly what the `serviceRef` is depends on the platform. Please refer to platform/SDK
+/// documentation for official information. However, the following is a brief guide:
+/// 
+/// Local Data:
+///   `serviceRef` is a string. This will be used to store the state of the leaderboard when
+///   exporting/importing JSON with Medal functions.
+/// 
+/// Steam:
+///   `serviceRef` is a string that is the name of the leaderboard, as set in the Steamworks
+///   backend.
+/// 
+/// PlayStation:
+///   `serviceRef` is an integer that is the index of the leaderboard, as set in the backend.
+/// 
+/// Xbox / Windows GDK:
+///   `serviceRef` is a string that is the stat identifier, as set in the backend.
+/// 
+/// Switch:
+///   `serviceRef` is a struct that contains leaderboard identifiers, as set in the backend.
+///   The struct should be in this format:
+///   {
+///       categoryTypeName: <string>,
+///       categoryID: <integer>
+///   }
+/// 
+/// iOS / GameCenter:
+///   `serviceRef` is a string that is the leaderboard identifier, as set in the GameCenter
+///   backend.
+/// 
+/// Android / Google Play Services:
+///   `serviceRef` is a string that is the leaderboard identifier, as set in the Google Play
+///   Services backend.
+/// 
 /// N.B. You must call `MedalSetPSGamepad()` or `MedalSetXboxUser()` before pushing scores to
 ///      leaderboards on PlayStation or Xbox.
 /// 
@@ -28,6 +62,8 @@ function MedalLbCreate(_name, _serviceRef, _higherValueIsBetter = true, _refresh
         
         return;
     }
+    
+    //TODO - Add error checking for service reference inputs
     
     var _struct = new __MedalClassLeaderboard(_name, _serviceRef, _higherValueIsBetter, _refreshPeriod);
     _leaderboardDict[$ _name] = _struct;

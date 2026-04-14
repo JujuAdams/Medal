@@ -243,7 +243,53 @@ function __MedalClassScores(_scoresID, _formattedServiceRef, _range, _refreshPer
                 // Xbox & Windows GDK
                 ///////
                 
-                __state = MEDAL_LB_STATE_ERROR;
+                if (_system.__xboxUser < 0)
+                {
+                    if (MEDAL_RUNNING_FROM_IDE)
+                    {
+                        __MedalError("Xbox user not set or invalid. Please set the gamepad with `MedalSetXboxUser()` before fetching leaderboard scores");
+                    }
+                    else
+                    {
+                        __MedalTrace($"Warning! Xbox user not set or invalid");
+                    }
+                }
+                else
+                {
+                    if (__range == MEDAL_RANGE_TOP)
+                    {
+                        __asyncID = xboxone_stats_get_leaderboard(_system.__xboxUser, __formattedServiceRef, 10, 1, false, not __leaderboard.__higherValueIsBetter);
+                    }
+                    else if (__range == MEDAL_RANGE_FRIENDS)
+                    {
+                        __asyncID = xboxone_stats_get_social_leaderboard(_system.__xboxUser, __formattedServiceRef, 10, 1, false, not __leaderboard.__higherValueIsBetter, false);
+                    }
+                    else if (__range == MEDAL_RANGE_AROUND)
+                    {
+                        __asyncID = xboxone_stats_get_leaderboard(_system.__xboxUser, __formattedServiceRef, 10, 0, true, not __leaderboard.__higherValueIsBetter);
+                    }
+                    
+                    __MedalRegisterAsyncID(__asyncID, function(_aborted)
+                    {
+                        if (MEDAL_VERBOSE)
+                        {
+                            __MedalTrace($"Received leaderboard data for \"{__formattedServiceRef}\" using range `{__range}`");
+                        }
+                        
+                        __asyncID = undefined;
+                        
+                        //TODO
+                        
+                        if (_aborted)
+                        {
+                            __state = MEDAL_LB_STATE_ERROR;
+                        }
+                        else
+                        {
+                            __state = MEDAL_LB_STATE_SUCCESS;
+                        }
+                    });
+                }
             }
             else if (MEDAL_ON_PS5)
             {
@@ -251,45 +297,111 @@ function __MedalClassScores(_scoresID, _formattedServiceRef, _range, _refreshPer
                 // PS5
                 ///////
                 
-                if (__range == MEDAL_RANGE_TOP)
+                if (_system.__psGamepad < 0)
                 {
-                    __asyncID = psn_get_leaderboard_score(_system.__psGamepad, __formattedServiceRef);
-                }
-                else if (__range == MEDAL_RANGE_FRIENDS)
-                {
-                    __asyncID = psn_get_friends_scores(_system.__psGamepad, __formattedServiceRef, 1, 10);
-                }
-                else if (__range == MEDAL_RANGE_AROUND)
-                {
-                    __asyncID = psn_get_leaderboard_score_range(_system.__psGamepad, __formattedServiceRef, 1, 10);
-                }
-                
-                __MedalRegisterAsyncID(__asyncID, function(_aborted)
-                {
-                    if (MEDAL_VERBOSE)
+                    if (MEDAL_RUNNING_FROM_IDE)
                     {
-                        __MedalTrace($"Received leaderboard data for \"{__formattedServiceRef}\" using range `{__range}`");
-                    }
-                    
-                    __asyncID = undefined;
-                    
-                    //TODO
-                    
-                    if (_aborted)
-                    {
-                        __state = MEDAL_LB_STATE_ERROR;
+                        __MedalError("PlayStation gamepad not set or invalid. Please set the gamepad with `MedalSetPSGamepad()` before fetching leaderboard scores");
                     }
                     else
                     {
-                        __state = MEDAL_LB_STATE_SUCCESS;
+                        __MedalTrace($"Warning! PlayStation gamepad not set or invalid");
                     }
-                });
+                }
+                else
+                {
+                    if (__range == MEDAL_RANGE_TOP)
+                    {
+                        __asyncID = psn_get_leaderboard_score(_system.__psGamepad, __formattedServiceRef);
+                    }
+                    else if (__range == MEDAL_RANGE_FRIENDS)
+                    {
+                        __asyncID = psn_get_friends_scores(_system.__psGamepad, __formattedServiceRef, 1, 10);
+                    }
+                    else if (__range == MEDAL_RANGE_AROUND)
+                    {
+                        __asyncID = psn_get_leaderboard_score_range(_system.__psGamepad, __formattedServiceRef, 1, 10);
+                    }
+                    
+                    __MedalRegisterAsyncID(__asyncID, function(_aborted)
+                    {
+                        if (MEDAL_VERBOSE)
+                        {
+                            __MedalTrace($"Received leaderboard data for \"{__formattedServiceRef}\" using range `{__range}`");
+                        }
+                        
+                        __asyncID = undefined;
+                        
+                        //TODO
+                        
+                        if (_aborted)
+                        {
+                            __state = MEDAL_LB_STATE_ERROR;
+                        }
+                        else
+                        {
+                            __state = MEDAL_LB_STATE_SUCCESS;
+                        }
+                    });
+                }
             }
             else if (MEDAL_ON_SWITCH)
             {
                 ///////
                 // Switch
                 ///////
+                
+                if (_system.__switchNPLNUserHandle < 0)
+                {
+                    if (MEDAL_RUNNING_FROM_IDE)
+                    {
+                        __MedalError("Switch NPLN user handle not set or invalid. Please set the gamepad with `MedalSetSwitchNPLNUserHandle()` before fetching leaderboard scores");
+                    }
+                    else
+                    {
+                        __MedalTrace($"Warning! Switch NPLN user handle not set or invalid");
+                    }
+                }
+                else
+                {
+                    //TODO - A lot of work to do here
+                    
+                    if ((__range == MEDAL_RANGE_TOP) || (__range == MEDAL_RANGE_FRIENDS))
+                    {
+                        __asyncID = switch_npln_leaderboard_get_scores_range(_system.__switchNPLNUserHandle,
+                                                                             __formattedServiceRef.categoryTypeName, __formattedServiceRef.categoryID,
+                                                                             0, //TODO - How do we calculate the season index?
+                                                                             0, 10);
+                    }
+                    else if (__range == MEDAL_RANGE_AROUND)
+                    {
+                        __asyncID = switch_npln_leaderboard_get_scores_near(_system.__switchNPLNUserHandle,
+                                                                             __formattedServiceRef.categoryTypeName, __formattedServiceRef.categoryID,
+                                                                            0, //TODO - How do we calculate the season index?
+                                                                            10);
+                    }
+                    
+                    __MedalRegisterAsyncID(__asyncID, function(_aborted)
+                    {
+                        if (MEDAL_VERBOSE)
+                        {
+                            __MedalTrace($"Received leaderboard data for \"{__formattedServiceRef}\" using range `{__range}`");
+                        }
+                        
+                        __asyncID = undefined;
+                        
+                        //TODO
+                        
+                        if (_aborted)
+                        {
+                            __state = MEDAL_LB_STATE_ERROR;
+                        }
+                        else
+                        {
+                            __state = MEDAL_LB_STATE_SUCCESS;
+                        }
+                    });
+                }
                 
                 __state = MEDAL_LB_STATE_ERROR;
             }

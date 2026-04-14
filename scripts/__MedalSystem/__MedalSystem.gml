@@ -31,6 +31,8 @@ function __MedalSystem()
         __steamAvailable        = false;
         __playServicesAvailable = false;
         
+        __switchNPLNUserHandle = undefined;
+        
         var _fallback = true;
         
         if (MEDAL_FORCE_LOCAL_DATA)
