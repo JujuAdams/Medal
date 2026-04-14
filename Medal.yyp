@@ -21,6 +21,7 @@
     {"$GMFolder":"","%Name":"Local Data","folderPath":"folders/Medal/Local Data.yy","name":"Local Data","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"PlayStation 5","folderPath":"folders/Medal/PlayStation 5.yy","name":"PlayStation 5","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Xbox & Windows GDK","folderPath":"folders/Medal/Xbox & Windows GDK.yy","name":"Xbox & Windows GDK","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Steamworks","folderPath":"folders/Steamworks.yy","name":"Steamworks","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],
   "ForcedPrefabProjectReferences":[],
   "IncludedFiles":[],
@@ -31,6 +32,7 @@
   },
   "name":"Medal",
   "resources":[
+    {"id":{"name":"Steamworks","path":"extensions/Steamworks/Steamworks.yy",},},
     {"id":{"name":"fntConsolas","path":"fonts/fntConsolas/fntConsolas.yy",},},
     {"id":{"name":"__MedalController","path":"objects/__MedalController/__MedalController.yy",},},
     {"id":{"name":"oTest","path":"objects/oTest/oTest.yy",},},
@@ -73,6 +75,7 @@
     {"id":{"name":"MedalPSActivityStart","path":"scripts/MedalPSActivityStart/MedalPSActivityStart.yy",},},
     {"id":{"name":"MedalSetPSGamepad","path":"scripts/MedalSetPSGamepad/MedalSetPSGamepad.yy",},},
     {"id":{"name":"MedalSetXboxUser","path":"scripts/MedalSetXboxUser/MedalSetXboxUser.yy",},},
+    {"id":{"name":"Steamworks_Definitions","path":"scripts/Steamworks_Definitions/Steamworks_Definitions.yy",},},
   ],
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
