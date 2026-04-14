@@ -70,7 +70,7 @@ function __MedalSystem()
                 
                 try
                 {
-                    __steamAvailable = steam_initialized();
+                    __steamAvailable = steam_initialised();
                 }
                 catch(_error)
                 {
@@ -90,11 +90,11 @@ function __MedalSystem()
                 {
                     if (MEDAL_RUNNING_FROM_IDE)
                     {
-                        __MedalError("Steam extension present in game but failed to initialize. Please check your Steam extension settings");
+                        __MedalError("Steam extension present in game but failed to initialize\nPlease check your Steam extension settings and that Steam is running");
                     }
                     else
                     {
-                        __MedalTrace("Warning! Steam extension present in game but failed to initialize. Please check your Steam extension settings");
+                        __MedalTrace("Warning! Steam extension present in game but failed to initialize. Please check your Steam extension settings and that Steam is running");
                     }
                 }
                 
