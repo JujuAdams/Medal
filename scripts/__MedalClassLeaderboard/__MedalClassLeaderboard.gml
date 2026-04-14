@@ -11,14 +11,56 @@ function __MedalClassLeaderboard(_name, _serviceRef, _higherValueIsBetter = true
     __serviceRef          = _serviceRef;
     __refreshPeriod       = _refreshPeriod;
     __higherValueIsBetter = _higherValueIsBetter;
-    __state               = MEDAL_LB_STATE_NO_DATA;
-    __lastRequestTime     = current_time;
+    __scoresDict          = {};
     
-    __cachedData = {
-        __top:     [],
-        __friends: [],
-        __around:  [],
-    };
+    
+    
+    static Push = function(_value)
+    {
+        if (_system.__local)
+        {
+            //TODO
+        }
+        else if (_system.__steamAvailable)
+        {
+            steam_upload_score(__GetFormattedServiceRef(), _value);
+        }
+        else
+        {
+            if (MEDAL_RUNNING_FROM_IDE)
+            {
+                __MedalError($"Unhandled OS {os_type}. Please report this error");
+            }
+            else
+            {
+                __MedalTrace($"Warning! Unhandled OS {os_type}");
+            }
+        }
+    }
+    
+    static GetScores = function(_range)
+    {
+        if ((_range != MEDAL_RANGE_TOP) && (_range != MEDAL_RANGE_FRIENDS) && (_range != MEDAL_RANGE_AROUND))
+        {
+            if (MEDAL_RUNNING_FROM_IDE)
+            {
+                __MedalError($"Unhandled range `{_range}`");
+            }
+            else
+            {
+                __MedalTrace($"Warning! Unhandled range `{_range}`");
+            }
+            
+            return undefined;
+        }
+        
+        return __EnsureScoresStruct(__GetFormattedServiceRef(), _range).__GetScores();
+    }
+    
+    static GetState = function(_range)
+    {
+        return __EnsureScoresStruct(__GetFormattedServiceRef(), _range).__state;
+    }
     
     static __GetFormattedServiceRef = function()
     {
@@ -51,51 +93,17 @@ function __MedalClassLeaderboard(_name, _serviceRef, _higherValueIsBetter = true
         return __serviceRef;
     }
     
-    static Push = function(_value)
+    static __EnsureScoresStruct = function(_formattedServiceRef, _range)
     {
-        if (_system.__local)
+        var _scoresID = $"{_formattedServiceRef}_range{_range}";
+        
+        var _struct = __scoresDict[$ _scoresID];
+        if (not is_struct(_struct))
         {
-            //TODO
-        }
-        else if (_system.__steamAvailable)
-        {
-            steam_upload_score(__GetFormattedServiceRef(), _value);
-        }
-        else
-        {
-            if (MEDAL_RUNNING_FROM_IDE)
-            {
-                __MedalError($"Unhandled OS {os_type}. Please report this error");
-            }
-            else
-            {
-                __MedalTrace($"Warning! Unhandled OS {os_type}");
-            }
-        }
-    }
-    
-    static GetScores = function(_range)
-    {
-        if (_system.__local)
-        {
-            //TODO
-        }
-        else if (_system.__steamAvailable)
-        {
-            steam_upload_score(__GetFormattedServiceRef(), _value);
-        }
-        else
-        {
-            if (MEDAL_RUNNING_FROM_IDE)
-            {
-                __MedalError($"Unhandled OS {os_type}. Please report this error");
-            }
-            else
-            {
-                __MedalTrace($"Warning! Unhandled OS {os_type}");
-            }
+            _struct = new __MedalClassScores(_scoresID, __GetFormattedServiceRef(), _range);
+            __scoresDict[$ _scoresID] = _struct;
         }
         
-        return undefined;
+        return _struct;
     }
 }

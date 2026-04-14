@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"__MedalClassScores",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__MedalClassScores",
+  "parent":{
+    "name":"(System)",
+    "path":"folders/Medal/(System).yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

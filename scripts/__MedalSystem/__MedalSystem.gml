@@ -1,4 +1,4 @@
-MedalSystem();
+__MedalSystem();
 
 function __MedalSystem()
 {
@@ -24,9 +24,9 @@ function __MedalSystem()
         __psGamepad = -1;
         __xboxUser = int64(0);
         
-        __medalToRefMap = ds_map_create();
+        __medalToRefMap   = ds_map_create();
         __leaderboardDict = {};
-        __serviceRefToLeaderboardMap = ds_map_create();
+        __asyncIDMap      = ds_map_create();
         
         __steamAvailable        = false;
         __playServicesAvailable = false;
@@ -41,6 +41,7 @@ function __MedalSystem()
             
             __local = true;
             __MedalAchievementsLocal();
+            __MedalLeaderboardsLocal();
         }
         else if (MEDAL_ON_DESKTOP)
         {
@@ -104,6 +105,7 @@ function __MedalSystem()
                 
                 __local = false;
                 __MedalAchievementsSteam();
+                __MedalLeaderboardsSteam();
             }
         }
         else if (MEDAL_ON_IOS)
@@ -211,6 +213,7 @@ function __MedalSystem()
             
             __local = false;
             __MedalAchievementsLocal();
+            __MedalLeaderboardsLocal();
         }
         else
         {          
@@ -220,6 +223,7 @@ function __MedalSystem()
             
             __local = true;
             __MedalAchievementsLocal();
+            __MedalLeaderboardsLocal();
         }
         
         if (_fallback)
@@ -228,6 +232,7 @@ function __MedalSystem()
             
             __local = true;
             __MedalAchievementsLocal();
+            __MedalLeaderboardsLocal();
         }
         
         __definingAchievements = false;

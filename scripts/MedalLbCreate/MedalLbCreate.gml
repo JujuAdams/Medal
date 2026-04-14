@@ -19,5 +19,6 @@ function MedalLbCreate(_name, _serviceRef, _higherValueIsBetter = true, _refresh
     
     var _struct = new __MedalClassLeaderboard(_name, _serviceRef, _higherValueIsBetter, _refreshPeriod);
     _leaderboardDict[$ _name] = _struct;
-    __serviceRefToLeaderboardMap[? _serviceRef] = _struct;
+    
+    return _struct;
 }
