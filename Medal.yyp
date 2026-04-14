@@ -25,6 +25,7 @@
   },
   "name":"Medal",
   "resources":[
+    {"id":{"name":"fntConsolas","path":"fonts/fntConsolas/fntConsolas.yy",},},
     {"id":{"name":"oTest","path":"objects/oTest/oTest.yy",},},
     {"id":{"name":"rMain","path":"rooms/rMain/rMain.yy",},},
     {"id":{"name":"__MedalConfig","path":"scripts/__MedalConfig/__MedalConfig.yy",},},
