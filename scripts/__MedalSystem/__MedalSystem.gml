@@ -22,7 +22,7 @@ function __MedalSystem()
         __localData = {};
         
         __psGamepad = -1;
-        __xboxUser = pointer_null;
+        __xboxUser = int64(0);
         
         __medalToRefMap = ds_map_create();
         

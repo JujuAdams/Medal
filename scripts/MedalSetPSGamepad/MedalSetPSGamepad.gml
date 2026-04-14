@@ -9,6 +9,14 @@ function MedalSetPSGamepad(_gamepad)
 {
     static _system = __MedalSystem();
     
-    psn_init_trophy(_gamepad);
-    _system.__psGamepad = _gamepad;
+    if (MEDAL_ON_PS5)
+    {
+        psn_init_trophy(_gamepad);
+        _system.__psGamepad = _gamepad;
+        
+        if (MEDAL_VERBOSE)
+        {
+            __MedalTrace($"Set PlayStation gamepad to {_gamepad}");
+        }
+    }
 }

@@ -66,6 +66,11 @@ function MedalAchUnlock(_medalIndex)
     {
         //Send off unlock command to remote service
         
+        if (MEDAL_VERBOSE)
+        {
+            __MedalTrace($"Awarding medal {_medalIndex} using remote service");
+        }
+        
         if (_system.__steamAvailable)
         {
             steam_set_achievement(_ref);
@@ -80,7 +85,7 @@ function MedalAchUnlock(_medalIndex)
         }
         else if (MEDAL_USING_GDK)
         {
-            if (_system.__xboxUser <= 0)
+            if (_system.__xboxUser <= int64(0))
             {
                 if (MEDAL_RUNNING_FROM_IDE)
                 {
