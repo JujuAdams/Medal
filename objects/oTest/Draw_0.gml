@@ -1,7 +1,13 @@
 var _string = $"Medal {MEDAL_VERSION}, {MEDAL_DATE}\n";
+_string += $"Gamepad = {gamepad} (press gp_face1 to choose gamepad)\n";
 _string += $"\n";
 _string += $"Using local data = {MedalGetUsingLocalData()? "true" : "false"}\n";
-_string += $"Local changed = {MedalGetLocalDataChanged()? "true" : "false"}\n";
+
+if (MedalGetUsingLocalData())
+{
+    _string += $"Local changed = {MedalGetLocalDataChanged()? "true" : "false"}\n";
+}
+
 _string += $"\n";
 
 if (MedalGetUsingLocalData())

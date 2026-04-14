@@ -1,1 +1,1 @@
-MedalSetPSGamepad(0);
+gamepad = -1;

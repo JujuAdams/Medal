@@ -1,31 +1,46 @@
 psn_tick();
 
-if (keyboard_check_pressed(ord("1")) || gamepad_button_check_pressed(0, gp_padu))
+var _i = 0;
+repeat(gamepad_get_device_count())
+{
+    if (gamepad_button_check_pressed(_i, gp_face1))
+    {
+        show_debug_message($"Found input from gamepad {_i}");
+        
+        gamepad = _i;
+        MedalSetPSGamepad(_i);
+        MedalSetXboxUser(xboxone_user_for_pad(_i));
+    }
+    
+    ++_i;
+}
+
+if (keyboard_check_pressed(ord("1")) || gamepad_button_check_pressed(gamepad, gp_padu))
 {
     MedalAchUnlock(MEDAL_ACH.SHINY_MACGUFFIN);
 }
 
-if (keyboard_check_pressed(ord("2")) || gamepad_button_check_pressed(0, gp_padr))
+if (keyboard_check_pressed(ord("2")) || gamepad_button_check_pressed(gamepad, gp_padr))
 {
     MedalAchUnlock(MEDAL_ACH.SLAY_FIFTY_THOUSAND_RATS);
 }
 
-if (keyboard_check_pressed(ord("3")) || gamepad_button_check_pressed(0, gp_padd))
+if (keyboard_check_pressed(ord("3")) || gamepad_button_check_pressed(gamepad, gp_padd))
 {
     MedalAchUnlock(MEDAL_ACH.OBNOXIOUS_JUMPING_PUZZLE);
 }
 
-if (keyboard_check_pressed(ord("4")) || gamepad_button_check_pressed(0, gp_padl))
+if (keyboard_check_pressed(ord("4")) || gamepad_button_check_pressed(gamepad, gp_padl))
 {
     MedalAchUnlock(MEDAL_ACH.WACKY_NPC_INTERACTION);
 }
 
-if (keyboard_check_pressed(ord("C")) || gamepad_button_check_pressed(0, gp_face4))
+if (keyboard_check_pressed(ord("C")) || gamepad_button_check_pressed(gamepad, gp_face4))
 {
     MedalAchLocalLockAll();
 }
 
-if (keyboard_check_pressed(ord("E")) || gamepad_button_check_pressed(0, gp_start))
+if (keyboard_check_pressed(ord("E")) || gamepad_button_check_pressed(gamepad, gp_start))
 {
     var _data = MedalExportLocalData();
     
@@ -38,7 +53,7 @@ if (keyboard_check_pressed(ord("E")) || gamepad_button_check_pressed(0, gp_start
     show_debug_message("Saved `medal.json`");
 }
 
-if (keyboard_check_pressed(ord("I")) || gamepad_button_check_pressed(0, gp_select))
+if (keyboard_check_pressed(ord("I")) || gamepad_button_check_pressed(gamepad, gp_select))
 {
     if (not file_exists("medal.json"))
     {
