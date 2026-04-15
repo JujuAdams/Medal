@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"GDKInitFromConfig",
   "parent":{
-    "name":"Medal",
-    "path":"Medal.yyp",
+    "name":"Allchievements",
+    "path":"Allchievements.yyp",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

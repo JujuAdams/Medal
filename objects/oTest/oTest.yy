@@ -12,8 +12,8 @@
   "name":"oTest",
   "overriddenProperties":[],
   "parent":{
-    "name":"Medal",
-    "path":"Medal.yyp",
+    "name":"Allchievements",
+    "path":"Allchievements.yyp",
   },
   "parentObjectId":null,
   "persistent":false,

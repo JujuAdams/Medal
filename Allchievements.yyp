@@ -1,6 +1,6 @@
 {
   "$GMProject":"v1",
-  "%Name":"Medal",
+  "%Name":"Allchievements",
   "AudioGroups":[
     {"$GMAudioGroup":"v1","%Name":"audiogroup_default","exportDir":"","name":"audiogroup_default","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
   ],
@@ -59,7 +59,7 @@
   "MetaData":{
     "IDEVersion":"2024.1400.4.1030",
   },
-  "name":"Medal",
+  "name":"Allchievements",
   "resources":[
     {"id":{"name":"GDKExtension","path":"extensions/GDKExtension/GDKExtension.yy",},},
     {"id":{"name":"Steamworks","path":"extensions/Steamworks/Steamworks.yy",},},

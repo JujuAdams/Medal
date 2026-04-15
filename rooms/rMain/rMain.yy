@@ -17,8 +17,8 @@
   ],
   "name":"rMain",
   "parent":{
-    "name":"Medal",
-    "path":"Medal.yyp",
+    "name":"Allchievements",
+    "path":"Allchievements.yyp",
   },
   "parentRoom":null,
   "physicsSettings":{

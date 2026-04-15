@@ -119,8 +119,8 @@
   "maintainGms1Font":false,
   "name":"fntConsolas",
   "parent":{
-    "name":"Medal",
-    "path":"Medal.yyp",
+    "name":"Allchievements",
+    "path":"Allchievements.yyp",
   },
   "pointRounding":0,
   "ranges":[
