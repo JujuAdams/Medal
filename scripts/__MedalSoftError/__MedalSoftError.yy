@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"__MedalTrace",
+  "%Name":"__MedalSoftError",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"__MedalTrace",
+  "name":"__MedalSoftError",
   "parent":{
     "name":"Debug",
     "path":"folders/Medal/(System)/Debug.yy",

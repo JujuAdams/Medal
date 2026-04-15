@@ -15,7 +15,7 @@ function MedalExportLocalData()
     {
         if (MEDAL_RUNNING_FROM_IDE)
         {
-            __MedalTrace($"Warning! Cannot export, not using locally stored data          {debug_get_callstack()}");
+            __MedalTrace("Cannot export, not using locally stored data");
         }
         
         return {};

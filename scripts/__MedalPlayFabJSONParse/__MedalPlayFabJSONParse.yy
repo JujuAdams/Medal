@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"__MedalTrace",
+  "%Name":"__MedalPlayFabJSONParse",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"__MedalTrace",
+  "name":"__MedalPlayFabJSONParse",
   "parent":{
-    "name":"Debug",
-    "path":"folders/Medal/(System)/Debug.yy",
+    "name":"JSON",
+    "path":"folders/PlayFab/JSON.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

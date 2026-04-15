@@ -95,13 +95,13 @@ function __MedalClassScores(_scoresID, _formattedServiceRef, _range, _refreshPer
                     
                     if (async_load[? "event_type"] != "leaderboard_download")
                     {
-                        __MedalTrace($"Warning! Received unexpected leaderboard event type \"{async_load[? "event_type"]}\", aborting");
+                        __MedalWarning($"Received unexpected leaderboard event type \"{async_load[? "event_type"]}\", aborting");
                         _aborted = true;
                     }
                     
                     if (async_load[? "status"] != 0)
                     {
-                        __MedalTrace($"Warning! Received unexpected leaderboard status `{async_load[? "status"]}`, aborting");
+                        __MedalWarning($"Received unexpected leaderboard status `{async_load[? "status"]}`, aborting");
                         _aborted = true;
                     }
                     
@@ -113,7 +113,7 @@ function __MedalClassScores(_scoresID, _formattedServiceRef, _range, _refreshPer
                     }
                     catch(_error)
                     {
-                        __MedalTrace($"Warning! Failed to parse returned leaderboard data");
+                        __MedalWarning($"Failed to parse returned leaderboard data");
                         
                         _json = undefined;
                         _aborted = true;
@@ -245,14 +245,7 @@ function __MedalClassScores(_scoresID, _formattedServiceRef, _range, _refreshPer
                 
                 if (_system.__xboxUser < 0)
                 {
-                    if (MEDAL_RUNNING_FROM_IDE)
-                    {
-                        __MedalError("Xbox user not set or invalid. Please set the gamepad with `MedalSetXboxUser()` before fetching leaderboard scores");
-                    }
-                    else
-                    {
-                        __MedalTrace($"Warning! Xbox user not set or invalid");
-                    }
+                    __MedalSoftError("Xbox user not set or invalid. Please set the gamepad with `MedalSetXboxUser()` before fetching leaderboard scores");
                 }
                 else
                 {
@@ -299,14 +292,7 @@ function __MedalClassScores(_scoresID, _formattedServiceRef, _range, _refreshPer
                 
                 if (_system.__psGamepad < 0)
                 {
-                    if (MEDAL_RUNNING_FROM_IDE)
-                    {
-                        __MedalError("PlayStation gamepad not set or invalid. Please set the gamepad with `MedalSetPSGamepad()` before fetching leaderboard scores");
-                    }
-                    else
-                    {
-                        __MedalTrace($"Warning! PlayStation gamepad not set or invalid");
-                    }
+                    __MedalSoftError("PlayStation gamepad not set or invalid. Please set the gamepad with `MedalSetPSGamepad()` before fetching leaderboard scores");
                 }
                 else
                 {
@@ -353,14 +339,7 @@ function __MedalClassScores(_scoresID, _formattedServiceRef, _range, _refreshPer
                 
                 if (_system.__switchNPLNUserHandle < 0)
                 {
-                    if (MEDAL_RUNNING_FROM_IDE)
-                    {
-                        __MedalError("Switch NPLN user handle not set or invalid. Please set the gamepad with `MedalSetSwitchNPLNUserHandle()` before fetching leaderboard scores");
-                    }
-                    else
-                    {
-                        __MedalTrace($"Warning! Switch NPLN user handle not set or invalid");
-                    }
+                    __MedalSoftError("Switch NPLN user handle not set or invalid. Please set the gamepad with `MedalSetSwitchNPLNUserHandle()` before fetching leaderboard scores");
                 }
                 else
                 {
@@ -407,14 +386,7 @@ function __MedalClassScores(_scoresID, _formattedServiceRef, _range, _refreshPer
             }
             else
             {
-                if (MEDAL_RUNNING_FROM_IDE)
-                {
-                    __MedalError($"Unhandled OS {os_type}. Please report this error");
-                }
-                else
-                {
-                    __MedalTrace($"Warning! Unhandled OS {os_type}");
-                }
+                __MedalSoftError($"Unhandled OS {os_type}. Please report this error");
             }
             
             if (__asyncID != undefined)

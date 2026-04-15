@@ -11,7 +11,7 @@ function MedalAchGetLocalState(_medalIndex)
     {
         if (MEDAL_RUNNING_FROM_IDE)
         {
-            __MedalTrace($"Warning! Cannot get state, not using locally stored data          {debug_get_callstack()}");
+            __MedalWarning("Cannot get state, not using locally stored data");
         }
         
         return false;
@@ -20,15 +20,7 @@ function MedalAchGetLocalState(_medalIndex)
     var _struct = _medalToRefMap[? _medalIndex];
     if (_struct == undefined)
     {
-        if (MEDAL_RUNNING_FROM_IDE)
-        {
-            __MedalError($"Medal index {_medalIndex} not recognised");
-        }
-        else
-        {
-            __MedalTrace($"Warning! Medal index {_medalIndex} not recognised          {debug_get_callstack()}");
-        }
-        
+        __MedalSoftError($"Medal index {_medalIndex} not recognised");
         return false;
     }
     

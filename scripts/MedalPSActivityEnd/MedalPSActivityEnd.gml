@@ -9,14 +9,7 @@ function MedalPSActivityEnd(_activityID, _outcome = "completed")
     {
         if (_system.__psGamepad < 0)
         {
-            if (MEDAL_RUNNING_FROM_IDE)
-            {
-                __MedalError("PlayStation gamepad not set or invalid. Please set the gamepad with `MedalSetPSGamepad()` before calling `MedalPSActivityEnd()`");
-            }
-            else
-            {
-                __MedalTrace($"Warning! PlayStation gamepad not set or invalid");
-            }
+            __MedalSoftError("PlayStation gamepad not set or invalid. Please set the gamepad with `MedalSetPSGamepad()` before calling `MedalPSActivityEnd()`");
         }
         else
         {

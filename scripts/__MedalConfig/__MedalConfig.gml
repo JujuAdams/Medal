@@ -13,6 +13,8 @@ enum MEDAL_ACH
 /// problems. You will likely want to set this macro to `false` for production builds.
 #macro MEDAL_VERBOSE  MEDAL_RUNNING_FROM_IDE
 
+#macro MEDAL_WARNINGS_HAVE_CALLSTACKS  true
+
 /// Whether to force use of local data storage. This will ignore any remote or per-platform
 /// services.
 #macro MEDAL_FORCE_LOCAL_DATA  false
@@ -20,3 +22,17 @@ enum MEDAL_ACH
 #macro MEDAL_REFRESH_OFFSET  60 //minutes
 
 #macro MEDAL_LB_DISRESPECT_RATE_LIMITS  MEDAL_RUNNING_FROM_IDE
+
+///////
+// PlayFab
+///////
+
+//You must tick the "Allow client to post player statistics" box in the PlayFab backend. This can
+//be found in the product / Settings / API Features.
+#macro MEDAL_GDK_USES_PLAYFAB_LEADERBOARDS  true
+
+//Found on PlayFab backend
+#macro MEDAL_PLAYFAB_TITLE_ID  ""
+
+//Found on PlayFab backend in the product / Settings / Secret Keys
+#macro MEDAL_PLAYFAB_TITLE_SECRET  ""

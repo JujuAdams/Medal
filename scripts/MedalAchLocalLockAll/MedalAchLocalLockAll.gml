@@ -9,7 +9,7 @@ function MedalAchLocalLockAll()
     {
         if (MEDAL_RUNNING_FROM_IDE)
         {
-            __MedalTrace($"Warning! Cannot unaward all medals, this feature is only available for local data          {debug_get_callstack()}");
+            __MedalWarning($"Cannot unaward all medals, this feature is only available for local data");
         }
         
         return;

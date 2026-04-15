@@ -7,15 +7,7 @@ function MedalLbFind(_leaderboardName)
     var _struct = _leaderboardDict[$ _leaderboardName];
     if (not is_struct(_struct))
     {
-        if (MEDAL_RUNNING_FROM_IDE)
-        {
-            __MedalError($"Leaderboard name \"{_leaderboardName}\" not recognised");
-        }
-        else
-        {
-            __MedalTrace($"Warning! Medal index {_leaderboardName} not recognised          {debug_get_callstack()}");
-        }
-        
+        __MedalSoftError($"Leaderboard name \"{_leaderboardName}\" not recognised");
         return undefined;
     }
     

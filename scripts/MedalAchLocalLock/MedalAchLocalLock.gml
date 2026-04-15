@@ -12,7 +12,7 @@ function MedalAchLocalLock(_medalIndex)
     {
         if (MEDAL_RUNNING_FROM_IDE)
         {
-            __MedalTrace($"Warning! Cannot unaward medal, this feature is only available for local data          {debug_get_callstack()}");
+            __MedalWarning($"Cannot unaward medal, this feature is only available for local data          {debug_get_callstack()}");
         }
         
         return;
@@ -21,15 +21,7 @@ function MedalAchLocalLock(_medalIndex)
     var _struct = _medalToRefMap[? _medalIndex];
     if (_struct == undefined)
     {
-        if (MEDAL_RUNNING_FROM_IDE)
-        {
-            __MedalError($"Medal index {_medalIndex} not recognised");
-        }
-        else
-        {
-            __MedalTrace($"Warning! Medal index {_medalIndex} not recognised          {debug_get_callstack()}");
-        }
-        
+        __MedalSoftError($"Medal index {_medalIndex} not recognised");
         return;
     }
     

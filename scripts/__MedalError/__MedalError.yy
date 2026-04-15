@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"__MedalError",
   "parent":{
-    "name":"(System)",
-    "path":"folders/Medal/(System).yy",
+    "name":"Debug",
+    "path":"folders/Medal/(System)/Debug.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

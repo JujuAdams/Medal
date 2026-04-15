@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"__MedalTrace",
+  "%Name":"GDKInitFromConfig",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"__MedalTrace",
+  "name":"GDKInitFromConfig",
   "parent":{
-    "name":"Debug",
-    "path":"folders/Medal/(System)/Debug.yy",
+    "name":"Medal",
+    "path":"Medal.yyp",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

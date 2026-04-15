@@ -8,14 +8,7 @@ function MedalPSActivityStart(_activityID)
     {
         if (_system.__psGamepad < 0)
         {
-            if (MEDAL_RUNNING_FROM_IDE)
-            {
-                __MedalError("PlayStation gamepad not set or invalid. Please set the gamepad with `MedalSetPSGamepad()` before calling `MedalPSStartActivity()`");
-            }
-            else
-            {
-                __MedalTrace($"Warning! PlayStation gamepad not set or invalid");
-            }
+            __MedalSoftError("PlayStation gamepad not set or invalid. Please set the gamepad with `MedalSetPSGamepad()` before calling `MedalPSStartActivity()`");
         }
         else
         {

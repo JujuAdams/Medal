@@ -37,64 +37,47 @@ function __MedalClassLeaderboard(_name, _serviceRef, _higherValueIsBetter = true
         {
             if (_system.__psGamepad < 0)
             {
-                if (MEDAL_RUNNING_FROM_IDE)
-                {
-                    __MedalError("PlayStation gamepad not set or invalid. Please set the gamepad with `MedalSetPSGamepad()` before pushing leaderboard scores");
-                }
-                else
-                {
-                    __MedalTrace($"Warning! PlayStation gamepad not set or invalid");
-                }
+                __MedalSoftError("PlayStation gamepad not set or invalid. Please set the gamepad with `MedalSetPSGamepad()` before pushing leaderboard scores");
             }
             else
             {
                 psn_post_leaderboard_score(_system.__psGamepad, GetFormattedServiceRef(), _value);
             }
         }
-        else if (MEDAL_USING_GDK)
+        else if (MEDAL_USING_XBOX_LEADERBOARDS)
         {
             if (_system.__xboxUser < 0)
             {
-                if (MEDAL_RUNNING_FROM_IDE)
-                {
-                    __MedalError("Xbox user not set or invalid. Please set the gamepad with `MedalSetXboxUser()` before pushing leaderboard scores");
-                }
-                else
-                {
-                    __MedalTrace($"Warning! Xbox user not set or invalid");
-                }
+                __MedalSoftError("Xbox user not set or invalid. Please set the gamepad with `MedalSetXboxUser()` before pushing leaderboard scores");
             }
             else
             {
                 xboxone_stats_set_stat_int(_system.__xboxUser, GetFormattedServiceRef(), _value);
             }
         }
+        else if (MEDAL_USING_PLAYFAB_LEADERBOARDS)
+        {
+            if (_system.__xboxUser < 0)
+            {
+                __MedalSoftError("Xbox user not set or invalid. Please set the gamepad with `MedalSetXboxUser()` before pushing leaderboard scores");
+            }
+            else
+            {
+                __MedalSetStatInt(GetFormattedServiceRef(), _value);
+            }
+        }
         else if (MEDAL_ON_SWITCH)
         {
             if (_system.__switchNPLNUserHandle == undefined)
             {
-                if (MEDAL_RUNNING_FROM_IDE)
-                {
-                    __MedalError("Switch NPLN user handle not set or invalid. Please set the NPLN user handle with `MedalSetSwitchNPLNUserHandle()` before pushing leaderboard scores");
-                }
-                else
-                {
-                    __MedalTrace($"Warning! Switch NPLN user handle not set or invalid");
-                }
+                __MedalSoftError("Switch NPLN user handle not set or invalid. Please set the NPLN user handle with `MedalSetSwitchNPLNUserHandle()` before pushing leaderboard scores");
             }
             
             switch_npln_leaderboard_set_score(_system.__switchNPLNUserHandle, __serviceRef.categoryTypeName, __serviceRef.categoryID, _value);
         }
         else
         {
-            if (MEDAL_RUNNING_FROM_IDE)
-            {
-                __MedalError($"Unhandled OS {os_type}. Please report this error");
-            }
-            else
-            {
-                __MedalTrace($"Warning! Unhandled OS {os_type}");
-            }
+            __MedalSoftError($"Unhandled OS {os_type}. Please report this error");
         }
     }
     
@@ -102,15 +85,7 @@ function __MedalClassLeaderboard(_name, _serviceRef, _higherValueIsBetter = true
     {
         if ((_range != MEDAL_RANGE_TOP) && (_range != MEDAL_RANGE_FRIENDS) && (_range != MEDAL_RANGE_AROUND))
         {
-            if (MEDAL_RUNNING_FROM_IDE)
-            {
-                __MedalError($"Unhandled range `{_range}`");
-            }
-            else
-            {
-                __MedalTrace($"Warning! Unhandled range `{_range}`");
-            }
-            
+            __MedalSoftError($"Unhandled range `{_range}`");
             return undefined;
         }
         
@@ -121,15 +96,7 @@ function __MedalClassLeaderboard(_name, _serviceRef, _higherValueIsBetter = true
     {
         if ((_range != MEDAL_RANGE_TOP) && (_range != MEDAL_RANGE_FRIENDS) && (_range != MEDAL_RANGE_AROUND))
         {
-            if (MEDAL_RUNNING_FROM_IDE)
-            {
-                __MedalError($"Unhandled range `{_range}`");
-            }
-            else
-            {
-                __MedalTrace($"Warning! Unhandled range `{_range}`");
-            }
-            
+            __MedalSoftError($"Unhandled range `{_range}`");
             return undefined;
         }
         

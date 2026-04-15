@@ -24,15 +24,7 @@ function MedalAchUnlock(_medalIndex)
     var _struct = _medalToRefMap[? _medalIndex];
     if (_struct == undefined)
     {
-        if (MEDAL_RUNNING_FROM_IDE)
-        {
-            __MedalError($"Medal index {_medalIndex} not recognised");
-        }
-        else
-        {
-            __MedalTrace($"Warning! Medal index {_medalIndex} not recognised          {debug_get_callstack()}");
-        }
-        
+        __MedalSoftError($"Medal index {_medalIndex} not recognised");
         return false;
     }
     
@@ -87,14 +79,7 @@ function MedalAchUnlock(_medalIndex)
         {
             if (_system.__xboxUser <= int64(0))
             {
-                if (MEDAL_RUNNING_FROM_IDE)
-                {
-                    __MedalError("Xbox user not set or invalid. Please set the user with `MedalSetXboxUser()` before calling `MedalAchUnlock()`");
-                }
-                else
-                {
-                    __MedalTrace($"Warning! Xbox user not set or invalid");
-                }
+                __MedalSoftError("Xbox user not set or invalid. Please set the user with `MedalSetXboxUser()` before calling `MedalAchUnlock()`");
             }
             else
             {
@@ -105,14 +90,7 @@ function MedalAchUnlock(_medalIndex)
         {
             if (_system.__psGamepad < 0)
             {
-                if (MEDAL_RUNNING_FROM_IDE)
-                {
-                    __MedalError("PlayStation gamepad not set or invalid. Please set the gamepad with `MedalSetPSGamepad()` before calling `MedalAchUnlock()`");
-                }
-                else
-                {
-                    __MedalTrace($"Warning! PlayStation gamepad not set or invalid");
-                }
+                __MedalSoftError("PlayStation gamepad not set or invalid. Please set the gamepad with `MedalSetPSGamepad()` before calling `MedalAchUnlock()`");
             }
             else
             {
@@ -121,14 +99,7 @@ function MedalAchUnlock(_medalIndex)
         }
         else
         {
-            if (MEDAL_RUNNING_FROM_IDE)
-            {
-                __MedalError($"Unhandled OS {os_type}. Please report this error");
-            }
-            else
-            {
-                __MedalTrace($"Warning! Unhandled OS {os_type}");
-            }
+            __MedalSoftError($"Unhandled OS {os_type}. Please report this error");
         }
     }
     

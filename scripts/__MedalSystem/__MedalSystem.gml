@@ -33,6 +33,14 @@ function __MedalSystem()
         
         __switchNPLNUserHandle = undefined;
         
+        __playFabSessionTicket = undefined;
+        __playFabEntityToken   = undefined;
+        
+        __playFabRequestToken   = undefined;
+        __playFabSessionTicket  = undefined;
+        __playFabGetEntityToken = undefined;
+        
+        
         var _fallback = true;
         
         if (MEDAL_FORCE_LOCAL_DATA)
@@ -70,6 +78,15 @@ function __MedalSystem()
                 
                 __local = false;
                 __MedalAchievementsXbox();
+                
+                if (MEDAL_USING_PLAYFAB_LEADERBOARDS)
+                {
+                    __MedalLeaderboardsXbox();
+                }
+                else if (MEDAL_USING_XBOX_LEADERBOARDS)
+                {
+                    __MedalLeaderboardsPlayFab();
+                }
             }
             else if (MEDAL_USING_STEAMWORKS)
             { 
@@ -95,14 +112,7 @@ function __MedalSystem()
                 }
                 else
                 {
-                    if (MEDAL_RUNNING_FROM_IDE)
-                    {
-                        __MedalError("Steam extension present in game but failed to initialize\nPlease check your Steam extension settings and that Steam is running");
-                    }
-                    else
-                    {
-                        __MedalTrace("Warning! Steam extension present in game but failed to initialize. Please check your Steam extension settings and that Steam is running");
-                    }
+                    __MedalSoftError("Steam extension present in game but failed to initialize\nPlease check your Steam extension settings and that Steam is running");
                 }
                 
                 __local = false;
@@ -176,7 +186,7 @@ function __MedalSystem()
                 }
                 else
                 {
-                    __MedalTrace("Warning! Googe Play Services extension failed to initialize. Player may not have Google Play installed");
+                    __MedalWarning("Googe Play Services extension failed to initialize. Player may not have Google Play installed");
                 }
             }
         }
@@ -203,6 +213,15 @@ function __MedalSystem()
             
             __local = false;
             __MedalAchievementsXbox();
+            
+            if (MEDAL_USING_PLAYFAB_LEADERBOARDS)
+            {
+                __MedalLeaderboardsXbox();
+            }
+            else if (MEDAL_USING_XBOX_LEADERBOARDS)
+            {
+                __MedalLeaderboardsPlayFab();
+            }
         }
         else if (MEDAL_ON_SWITCH)
         {

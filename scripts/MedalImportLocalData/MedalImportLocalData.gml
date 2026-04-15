@@ -18,7 +18,7 @@ function MedalImportLocalData(_data)
     {
         if (MEDAL_RUNNING_FROM_IDE)
         {
-            __MedalTrace($"Warning! Cannot import, not using locally stored data          {debug_get_callstack()}");
+            __MedalWarning("Cannot import, not using locally stored data");
         }
     }
 }
