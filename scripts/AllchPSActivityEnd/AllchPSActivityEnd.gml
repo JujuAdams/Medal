@@ -1,3 +1,7 @@
+/// PlayStation 5 requires that developers implement "activities" that the player can complete.
+/// This function ends an activity that has previously been started (typically using
+/// `AllchPSActivityStart()`). Please refer to Sony documentation for further details.
+/// 
 /// @param activityID
 /// @param [outcome=completed]
 

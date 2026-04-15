@@ -1,4 +1,4 @@
-var _string = $"Allch {ALLCH_VERSION}, {ALLCH_DATE}\n";
+var _string = $"Allchievements {ALLCH_VERSION}, {ALLCH_DATE}\n";
 _string += $"Gamepad = {gamepad} (press gp_face1 to choose gamepad)\n";
 _string += $"\n";
 _string += $"Using local data = {AllchGetUsingLocal()? "true" : "false"}\n";

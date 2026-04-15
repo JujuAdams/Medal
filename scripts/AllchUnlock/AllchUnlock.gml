@@ -4,27 +4,27 @@
 /// N.B. You must call `AllchSetPSGamepad()` or `AllchSetXboxUser()` before unlocking achievements
 ///      on PlayStation or Xbox.
 /// 
-/// N.B. Allch does not call `psn_tick()` for you when running on PlayStation. You must call these
-///      functions yourself.
+/// N.B. Allchievements does not call `psn_tick()` for you when running on PlayStation. You must
+///      call this functions yourself.
 /// 
-/// N.B. Allch does not call `gdk_init()`, `gdk_update()`, or `gdk_quit()` for you when running on
-///      Xbox. You must call these functions yourself.
+/// N.B. Allchievements does not call `gdk_init()`, `gdk_update()`, or `gdk_quit()` for you when
+///      running on WIndows using the Xbox GDK extension. You must call these functions yourself.
 /// 
 /// If locally stored achievements are being used (as indicated by `AllchLocalGetUsing()`) then
 /// this function will return `true` if an achievement is newly unlocked. This positive return
 /// value might be used to trigger an in-game notification etc.
 /// 
-/// @param allchIndex
+/// @param achievementIndex
 
-function AllchUnlock(_allchIndex)
+function AllchUnlock(_achievementIndex)
 {
     static _system       = __AllchSystem();
     static _allchToRefMap = _system.__allchToRefMap;
     
-    var _struct = _allchToRefMap[? _allchIndex];
+    var _struct = _allchToRefMap[? _achievementIndex];
     if (_struct == undefined)
     {
-        __AllchSoftError($"Allch index {_allchIndex} not recognised");
+        __AllchSoftError($"Achievement index {_achievementIndex} not recognised");
         return false;
     }
     
@@ -38,7 +38,7 @@ function AllchUnlock(_allchIndex)
         {
             if (ALLCH_VERBOSE)
             {
-                __AllchTrace($"Awarding allch {_allchIndex} (service reference `{_ref}`)");
+                __AllchTrace($"Awarding achievement {_achievementIndex} (service reference `{_ref}`)");
             }
             
             _system.__localData[$ _ref] = true;
@@ -50,7 +50,7 @@ function AllchUnlock(_allchIndex)
         {
             if (ALLCH_VERBOSE)
             {
-                __AllchTrace($"Awarding allch {_allchIndex} but player already has it (service reference `{_ref}`)");
+                __AllchTrace($"Awarding achievement {_achievementIndex} but player already has it (service reference `{_ref}`)");
             }
         }
     }
@@ -60,7 +60,7 @@ function AllchUnlock(_allchIndex)
         
         if (ALLCH_VERBOSE)
         {
-            __AllchTrace($"Awarding allch {_allchIndex} using remote service");
+            __AllchTrace($"Awarding achievement {_achievementIndex} using remote service");
         }
         
         if (_system.__steamAvailable)

@@ -2,5 +2,5 @@
 
 function __AllchError(_string)
 {
-    show_error($" \nAllch:\n{_string}\n ", true);
+    show_error($" \nAllchievements:\n{_string}\n ", true);
 }

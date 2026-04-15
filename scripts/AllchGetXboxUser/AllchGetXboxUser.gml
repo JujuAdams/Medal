@@ -1,4 +1,4 @@
-/// Gets the current gamepad that Allch will target when unlocking achievements.
+/// Gets the current gamepad that Allchievements will target when unlocking achievements.
 
 function AllchGetXboxUser()
 {

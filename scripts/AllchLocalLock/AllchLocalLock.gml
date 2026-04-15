@@ -1,9 +1,9 @@
 /// Locks an achievement that the player has previously unlocked. This only applies to locally
 /// stored achievements.
 /// 
-/// @param allchIndex
+/// @param achievementIndex
 
-function AllchLocalLock(_allchIndex)
+function AllchLocalLock(_achievementIndex)
 {
     static _system       = __AllchSystem();
     static _allchToRefMap = _system.__allchToRefMap;
@@ -18,10 +18,10 @@ function AllchLocalLock(_allchIndex)
         return;
     }
     
-    var _struct = _allchToRefMap[? _allchIndex];
+    var _struct = _allchToRefMap[? _achievementIndex];
     if (_struct == undefined)
     {
-        __AllchSoftError($"Allch index {_allchIndex} not recognised");
+        __AllchSoftError($"Achievement index {_achievementIndex} not recognised");
         return;
     }
     
@@ -30,7 +30,7 @@ function AllchLocalLock(_allchIndex)
     {
         if (ALLCH_VERBOSE)
         {
-            __AllchTrace($"Unawarding allch {_allchIndex} (service reference `{_ref}`)");
+            __AllchTrace($"Unawarding achievement {_achievementIndex} (service reference `{_ref}`)");
         }
         
         _system.__localData[$ _ref] = false;
@@ -40,7 +40,7 @@ function AllchLocalLock(_allchIndex)
     {
         if (ALLCH_VERBOSE)
         {
-            __AllchTrace($"Unawarding allch {_allchIndex} but player doesn't have it (service reference `{_ref}`)");
+            __AllchTrace($"Unawarding achievement {_achievementIndex} but player doesn't have it (service reference `{_ref}`)");
         }
     }
 }

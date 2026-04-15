@@ -14,7 +14,7 @@ function __AllchSystem()
     
     with(_system)
     {
-        __AllchTrace($"Welcome to Allch by Juju Adams! This is version {ALLCH_VERSION}, {ALLCH_DATE}");
+        __AllchTrace($"Welcome to Allchievements by Juju Adams! This is version {ALLCH_VERSION}, {ALLCH_DATE}");
         
         __runningDefinitions = true;
         

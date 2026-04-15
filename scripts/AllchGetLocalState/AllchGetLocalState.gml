@@ -1,8 +1,8 @@
 /// Returns whether a locally stored achievement has been unlocked or not.
 /// 
-/// @param allchIndex
+/// @param achievementIndex
 
-function AllchGetLocalState(_allchIndex)
+function AllchGetLocalState(_achievementIndex)
 {
     static _system        = __AllchSystem();
     static _allchToRefMap = _system.__allchToRefMap;
@@ -17,10 +17,10 @@ function AllchGetLocalState(_allchIndex)
         return false;
     }
     
-    var _struct = _allchToRefMap[? _allchIndex];
+    var _struct = _allchToRefMap[? _achievementIndex];
     if (_struct == undefined)
     {
-        __AllchSoftError($"Allch index {_allchIndex} not recognised");
+        __AllchSoftError($"Achievement {_achievementIndex} not recognised");
         return false;
     }
     

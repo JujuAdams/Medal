@@ -1,4 +1,4 @@
-/// Gets the current gamepad that Allch will target when unlocking trophies.
+/// Gets the current gamepad that Allchievements will target when unlocking trophies.
 
 function AllchGetPSGamepad()
 {

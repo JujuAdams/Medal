@@ -1,6 +1,5 @@
-/// Returns if Allch is using locally stored achievement data. This will happen if your game is
-/// running on a platform without a native achievement system (e.g. Switch) or if a required
-/// extension hasn't been installed.
+/// Returns if Allchievements is using locally stored achievement data. This will happen if your
+/// game is running on a platform without a native achievement system (e.g. Switch).
 
 function AllchGetUsingLocal()
 {

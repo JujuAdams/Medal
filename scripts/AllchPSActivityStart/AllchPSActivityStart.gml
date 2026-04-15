@@ -1,3 +1,7 @@
+/// PlayStation 5 requires that developers implement "activities" that the player can complete.
+/// This function starts an activity that you have defined in the UDS backend. Please refer to
+/// Sony documentation for further details.
+/// 
 /// @param activityID
 
 function AllchPSActivityStart(_activityID)

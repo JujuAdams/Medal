@@ -2,16 +2,16 @@
 /// custom achievement systems and you'd like to label certain achievements as secret until they
 /// are unlocked.
 /// 
-/// @param allchIndex
+/// @param achievementIndex
 
-function AllchGetLocalHidden(_allchIndex)
+function AllchGetLocalHidden(_achievementIndex)
 {
     static _allchToRefMap = __AllchSystem().__allchToRefMap;
     
-    var _struct = _allchToRefMap[? _allchIndex];
+    var _struct = _allchToRefMap[? _achievementIndex];
     if (_struct == undefined)
     {
-        __AllchSoftError($"Allch index {_allchIndex} not recognised");
+        __AllchSoftError($"Achievement index {_achievementIndex} not recognised");
         return true;
     }
     
