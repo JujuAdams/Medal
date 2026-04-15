@@ -1,5 +1,5 @@
 build
-extensions/Steamworks
+extensions
 options/extensions/Steamworks.json
 
 # Windows
@@ -64,3 +64,9 @@ Temporary Items
 
 # GMRT build directory
 Build
+datafiles/StoreLogo.png
+datafiles/Square44x44Logo.png
+datafiles/Square150x150Logo.png
+datafiles/SplashScreenImage.png
+datafiles/MicrosoftGame.config
+datafiles/default480x480.png

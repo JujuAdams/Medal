@@ -1,3 +1,4 @@
+gdk_update();
 psn_tick();
 steam_update();
 
