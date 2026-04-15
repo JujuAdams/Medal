@@ -13,13 +13,11 @@
 #macro MEDAL_ON_PS5                      (os_type == os_ps5)
 #macro MEDAL_ON_SWITCH                   (os_type == os_switch)
 
-#macro MEDAL_USING_STEAMWORKS            (MEDAL_ON_DESKTOP && extension_exists("Steamworks"))
-#macro MEDAL_USING_GAMECENTER            (MEDAL_ON_IOS && extension_exists("GameCenter"))
-#macro MEDAL_USING_PLAY_SERVICES         (MEDAL_ON_ANDROID && extension_exists("GooglePlayServices"))
-#macro MEDAL_USING_GDK                   (MEDAL_ON_XBOX_SERIES || MEDAL_USING_WINDOWS_GDK)
-#macro MEDAL_USING_WINDOWS_GDK           (MEDAL_ON_WINDOWS && extension_exists("GDKExtension"))
-#macro MEDAL_USING_XBOX_LEADERBOARDS     (MEDAL_USING_GDK && (not MEDAL_GDK_USES_PLAYFAB_LEADERBOARDS))
-#macro MEDAL_USING_PLAYFAB_LEADERBOARDS  (MEDAL_USING_GDK && MEDAL_GDK_USES_PLAYFAB_LEADERBOARDS)
+#macro MEDAL_USING_STEAMWORKS     (MEDAL_ON_DESKTOP && extension_exists("Steamworks"))
+#macro MEDAL_USING_GAMECENTER     (MEDAL_ON_IOS && extension_exists("GameCenter"))
+#macro MEDAL_USING_PLAY_SERVICES  (MEDAL_ON_ANDROID && extension_exists("GooglePlayServices"))
+#macro MEDAL_USING_GDK            (MEDAL_ON_XBOX_SERIES || MEDAL_USING_WINDOWS_GDK)
+#macro MEDAL_USING_WINDOWS_GDK    (MEDAL_ON_WINDOWS && extension_exists("GDKExtension"))
 
 #macro MEDAL_REFRESH_NEVER    0
 #macro MEDAL_REFRESH_DAILY    1

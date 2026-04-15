@@ -1,5 +1,5 @@
 /// Defines a link between a medal index and outside data storage. This function should only be
-/// called in one of the Medal configuration scripts (`__MedalAchievementsSteam` etc.). The medal
+/// called in one of the Medal configuration scripts (`__MedalDefinitionsSteam` etc.). The medal
 /// index should be a member of `MEDAL_ACH` enum defined in `__MedalConfig`.
 /// 
 /// N.B. When adding or modifying a medal you must propagate those changes to every configuration
@@ -48,7 +48,7 @@ function MedalAchDefine(_medalIndex, _serviceRef, _hidden = false)
     
     if (not _system.__runningDefinitions)
     {
-        __MedalError("`MedalAchDefine()` must only be called in a `__MedalAchievements*` script");
+        __MedalError("`MedalAchDefine()` must only be called in a `__MedalDefinitions*` script");
     }
     
     if (MEDAL_VERBOSE)

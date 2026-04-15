@@ -8,5 +8,3 @@ if (MEDAL_ON_XBOX_SERIES)
         MedalSetXboxUser(_activatingUser);
     }
 }
-
-playFabLoggedIn = false;

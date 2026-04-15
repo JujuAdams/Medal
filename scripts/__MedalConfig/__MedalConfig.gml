@@ -1,5 +1,5 @@
 /// Global enum used for achievement indexes within the project. This enum is mapped to identifiers
-/// per service in each of the `__MedalAchievements*` scripts. You should edit this enum and the
+/// per service in each of the `__MedalDefinitions*` scripts. You should edit this enum and the
 /// achievement definition scripts.
 enum MEDAL_ACH
 {
@@ -18,19 +18,3 @@ enum MEDAL_ACH
 /// Whether to force use of local data storage. This will ignore any remote or per-platform
 /// services.
 #macro MEDAL_FORCE_LOCAL_DATA  false
-
-#macro MEDAL_LB_DISRESPECT_RATE_LIMITS  false
-
-///////
-// PlayFab
-///////
-
-//You must tick the "Allow client to post player statistics" box in the PlayFab backend. This can
-//be found in the product / Settings / API Features.
-#macro MEDAL_GDK_USES_PLAYFAB_LEADERBOARDS  true
-
-//Found on PlayFab backend
-#macro MEDAL_PLAYFAB_TITLE_ID  ""
-
-//Found on PlayFab backend in the product / Settings / Secret Keys
-#macro MEDAL_PLAYFAB_TITLE_SECRET  ""

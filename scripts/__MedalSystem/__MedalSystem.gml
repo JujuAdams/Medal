@@ -25,31 +25,21 @@ function __MedalSystem()
         __xboxUser = int64(0);
         
         __medalToRefMap   = ds_map_create();
-        __leaderboardDict = {};
         __steamAsyncIDMap = ds_map_create();
-        __httpAsyncIDMap  = ds_map_create();
         
         __steamAvailable        = false;
         __playServicesAvailable = false;
-        
-        __switchNPLNUserHandle = undefined;
-        
-        __playFabLoggedIn      = false;
-        __playFabSessionTicket = undefined;
-        __playFabEntityToken   = undefined;
-        
         
         var _fallback = true;
         
         if (MEDAL_FORCE_LOCAL_DATA)
         {
-            __MedalTrace($"Forcing local data use via `MEDAL_FORCE_LOCAL_DATA` (__MedalAchievementsLocal / __MedalLeaderboardsLocal)");
+            __MedalTrace($"Forcing local data use via `MEDAL_FORCE_LOCAL_DATA` (__MedalDefinitionsLocal)");
             
             _fallback = false;
             
             __local = true;
-            __MedalAchievementsLocal();
-            __MedalLeaderboardsLocal();
+            __MedalDefinitionsLocal();
         }
         else if (MEDAL_ON_DESKTOP)
         {
@@ -69,24 +59,13 @@ function __MedalSystem()
                 
                 if (MEDAL_VERBOSE)
                 {
-                    __MedalTrace("Using Xbox achivements (__MedalAchievementsXbox)");
+                    __MedalTrace("Using Xbox achivements (__MedalDefinitionsXbox)");
                 }
                 
                 _fallback = false;
                 
                 __local = false;
-                __MedalAchievementsXbox();
-                
-                if (MEDAL_USING_PLAYFAB_LEADERBOARDS)
-                {
-                    __MedalTrace("Using PlayFab leaderboards with (__MedalLeaderboardsPlayFab)");
-                    __MedalLeaderboardsPlayFab();
-                }
-                else if (MEDAL_USING_XBOX_LEADERBOARDS)
-                {
-                    __MedalTrace("Using Xbox leaderboards with (__MedalLeaderboardsXbox)");
-                    __MedalLeaderboardsXbox();
-                }
+                __MedalDefinitionsXbox();
             }
             else if (MEDAL_USING_STEAMWORKS)
             { 
@@ -107,7 +86,7 @@ function __MedalSystem()
                     
                     if (MEDAL_VERBOSE)
                     {
-                        __MedalTrace("Using Steam remote service with `__MedalAchievementsSteam`");
+                        __MedalTrace("Using Steam remote service with `__MedalDefinitionsSteam`");
                     }
                 }
                 else
@@ -116,8 +95,7 @@ function __MedalSystem()
                 }
                 
                 __local = false;
-                __MedalAchievementsSteam();
-                __MedalLeaderboardsSteam();
+                __MedalDefinitionsSteam();
             }
         }
         else if (MEDAL_ON_IOS)
@@ -138,11 +116,11 @@ function __MedalSystem()
                 
                 if (MEDAL_VERBOSE)
                 {
-                    __MedalTrace("Using GameCenter remote service with `__MedalAchievementsGameCenter`");
+                    __MedalTrace("Using GameCenter remote service with `__MedalDefinitionsGameCenter`");
                 }
                 
                 __local = false;
-                __MedalAchievementsGameCenter();
+                __MedalDefinitionsGameCenter();
             }
         }
         else if (MEDAL_ON_ANDROID)
@@ -176,13 +154,13 @@ function __MedalSystem()
                     
                     if (MEDAL_VERBOSE)
                     {
-                        __MedalTrace("Using Googe Play Services with `__MedalAchievementsPlayServices`");
+                        __MedalTrace("Using Googe Play Services with `__MedalDefinitionsPlayServices`");
                     }
                     
                     _fallback = false;
                     
                     __local = false;
-                    __MedalAchievementsPlayServices();
+                    __MedalDefinitionsPlayServices();
                 }
                 else
                 {
@@ -194,66 +172,54 @@ function __MedalSystem()
         {
             if (MEDAL_VERBOSE)
             {
-                __MedalTrace("Using PlayStation remote service with `__MedalAchievementsPlayStation`");
+                __MedalTrace("Using PlayStation remote service with `__MedalDefinitionsPlayStation`");
             }
             
             _fallback = false;
             
             __local = false;
-            __MedalAchievementsPlayStation();
+            __MedalDefinitionsPlayStation();
         }
         else if (MEDAL_ON_XBOX_SERIES)
         {
             if (MEDAL_VERBOSE)
             {
-                __MedalTrace("Using Xbox remote service with `__MedalAchievementsXbox`");
+                __MedalTrace("Using Xbox remote service with `__MedalDefinitionsXbox`");
             }
             
             _fallback = false;
             
             __local = false;
-            __MedalAchievementsXbox();
-            
-            if (MEDAL_USING_PLAYFAB_LEADERBOARDS)
-            {
-                __MedalLeaderboardsXbox();
-            }
-            else if (MEDAL_USING_XBOX_LEADERBOARDS)
-            {
-                __MedalLeaderboardsPlayFab();
-            }
+            __MedalDefinitionsXbox();
         }
         else if (MEDAL_ON_SWITCH)
         {
             if (MEDAL_VERBOSE)
             {
-                __MedalTrace("No remote service available on Switch, using locally stored data with `__MedalAchievementsLocal`");
+                __MedalTrace("No remote service available on Switch, using locally stored data with `__MedalDefinitionsLocal`");
             }
             
             _fallback = false;
             
             __local = false;
-            __MedalAchievementsLocal();
-            __MedalLeaderboardsLocal();
+            __MedalDefinitionsLocal();
         }
         else
         {          
-            __MedalTrace($"Platform ({os_type}) has no explicit support, falling back on locally stored data with `__MedalAchievementsLocal`");
+            __MedalTrace($"Platform ({os_type}) has no explicit support, falling back on locally stored data with `__MedalDefinitionsLocal`");
             
             _fallback = false;
             
             __local = true;
-            __MedalAchievementsLocal();
-            __MedalLeaderboardsLocal();
+            __MedalDefinitionsLocal();
         }
         
         if (_fallback)
         {
-            __MedalTrace($"Remote service not available, falling back on locally stored data with `__MedalAchievementsLocal`");
+            __MedalTrace($"Remote service not available, falling back on locally stored data with `__MedalDefinitionsLocal`");
             
             __local = true;
-            __MedalAchievementsLocal();
-            __MedalLeaderboardsLocal();
+            __MedalDefinitionsLocal();
         }
         
         __runningDefinitions = false;
