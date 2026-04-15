@@ -6,7 +6,7 @@
   "name":"__MedalPlayFabXboxLogin",
   "parent":{
     "name":"HTTP Requests",
-    "path":"folders/PlayFab/HTTP Requests.yy",
+    "path":"folders/Medal/(System)/PlayFab/HTTP Requests.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

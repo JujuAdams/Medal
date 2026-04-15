@@ -15,5 +15,16 @@ function MedalSetXboxUser(_xboxUser)
         {
             __MedalTrace($"Set Xbox user to {_xboxUser}");
         }
+        
+        //FIXME - It's possible for tokens to get confused if you set the Xbox user rapidly
+        if (MEDAL_USING_PLAYFAB_LEADERBOARDS)
+        {
+            _system.__playFabLoggedIn = false;
+            
+            if (_xboxUser != 0)
+            {
+                __MedalPlayFabXboxRequestToken();
+            }
+        }
     }
 }

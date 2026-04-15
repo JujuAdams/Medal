@@ -6,7 +6,7 @@
   "name":"__MedalPlayFabJSONParse",
   "parent":{
     "name":"JSON",
-    "path":"folders/PlayFab/JSON.yy",
+    "path":"folders/Medal/(System)/PlayFab/JSON.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

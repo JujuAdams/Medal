@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"__MedalPlayFabSetStatistic",
+  "%Name":"__MedalPlayFabSetStat",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"__MedalPlayFabSetStatistic",
+  "name":"__MedalPlayFabSetStat",
   "parent":{
     "name":"HTTP Requests",
-    "path":"folders/PlayFab/HTTP Requests.yy",
+    "path":"folders/Medal/(System)/PlayFab/HTTP Requests.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -63,7 +63,7 @@ function __MedalClassLeaderboard(_name, _serviceRef, _higherValueIsBetter = true
             }
             else
             {
-                __MedalSetStatInt(GetFormattedServiceRef(), _value);
+                __MedalPlayFabSetStat(GetFormattedServiceRef(), _value);
             }
         }
         else if (MEDAL_ON_SWITCH)
@@ -72,8 +72,10 @@ function __MedalClassLeaderboard(_name, _serviceRef, _higherValueIsBetter = true
             {
                 __MedalSoftError("Switch NPLN user handle not set or invalid. Please set the NPLN user handle with `MedalSetSwitchNPLNUserHandle()` before pushing leaderboard scores");
             }
-            
-            switch_npln_leaderboard_set_score(_system.__switchNPLNUserHandle, __serviceRef.categoryTypeName, __serviceRef.categoryID, _value);
+            else
+            {
+                switch_npln_leaderboard_set_score(_system.__switchNPLNUserHandle, __serviceRef.categoryTypeName, __serviceRef.categoryID, _value);
+            }
         }
         else
         {

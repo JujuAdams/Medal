@@ -46,7 +46,7 @@ function MedalAchDefine(_medalIndex, _serviceRef, _hidden = false)
     static _system        = __MedalSystem();
     static _medalToRefMap = _system.__medalToRefMap;
     
-    if (not _system.__definingAchievements)
+    if (not _system.__runningDefinitions)
     {
         __MedalError("`MedalAchDefine()` must only be called in a `__MedalAchievements*` script");
     }

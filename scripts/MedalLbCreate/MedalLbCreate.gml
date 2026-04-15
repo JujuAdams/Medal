@@ -51,7 +51,8 @@
 
 function MedalLbCreate(_name, _serviceRef, _higherValueIsBetter = true, _refreshPeriod = MEDAL_REFRESH_NEVER)
 {
-    static _leaderboardDict = __MedalSystem().__leaderboardDict;
+    static _system = __MedalSystem();
+    static _leaderboardDict = _system.__leaderboardDict;
     
     if (struct_exists(_leaderboardDict, _name))
     {
@@ -61,6 +62,16 @@ function MedalLbCreate(_name, _serviceRef, _higherValueIsBetter = true, _refresh
         }
         
         return;
+    }
+    
+    if (not _system.__runningDefinitions)
+    {
+        __MedalError("`MedalLbCreate()` must only be called in a `__MedalLeaderboards*` script");
+    }
+    
+    if (MEDAL_VERBOSE)
+    {
+        __MedalTrace($"Defining leaderboard \"{_name}\" for service reference `{_serviceRef}`, higherValueIsBetter = {_higherValueIsBetter? "true" : "false"}, refreshPeriod = {_refreshPeriod}");
     }
     
     //TODO - Add error checking for service reference inputs

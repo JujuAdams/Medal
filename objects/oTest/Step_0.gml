@@ -2,6 +2,19 @@ gdk_update();
 psn_tick();
 steam_update();
 
+var _playFabLoggedIn = MedalGetPlayFabLoggedIn();
+if (playFabLoggedIn != _playFabLoggedIn)
+{
+    playFabLoggedIn = _playFabLoggedIn;
+    
+    if (_playFabLoggedIn)
+    {
+        MedalLbGetScores("testLeaderboard");
+        MedalLbGetScores("testHourlyLeaderboard");
+        MedalLbGetScores("testDailyLeaderboard");
+    }
+}
+
 var _i = 0;
 repeat(gamepad_get_device_count())
 {

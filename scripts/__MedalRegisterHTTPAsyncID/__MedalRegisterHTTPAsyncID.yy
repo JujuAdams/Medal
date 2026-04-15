@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"__MedalRegisterAsyncID",
+  "%Name":"__MedalRegisterHTTPAsyncID",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"__MedalRegisterAsyncID",
+  "name":"__MedalRegisterHTTPAsyncID",
   "parent":{
     "name":"(System)",
     "path":"folders/Medal/(System).yy",

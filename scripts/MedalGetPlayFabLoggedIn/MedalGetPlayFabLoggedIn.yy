@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"MedalGetPlayFabLoggedIn",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"MedalGetPlayFabLoggedIn",
+  "parent":{
+    "name":"PlayFab",
+    "path":"folders/Medal/(System)/PlayFab.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

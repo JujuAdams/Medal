@@ -6,15 +6,7 @@ if (MEDAL_ON_XBOX_SERIES)
     if (_activatingUser != 0)
     {
         MedalSetXboxUser(_activatingUser);
-        
-        if (MEDAL_USING_PLAYFAB_LEADERBOARDS)
-        {
-            __MedalPlayFabOnXboxRequestToken();
-        }
     }
 }
 
-__playFabRequestToken          = undefined;
-__playFabRequestGetLeaderboard = undefined;
-__playFabRequestGetStatistic   = undefined;
-__playFabRequestSetStatistic   = undefined;
+playFabLoggedIn = false;

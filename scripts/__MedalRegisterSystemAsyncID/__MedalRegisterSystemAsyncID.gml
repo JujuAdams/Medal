@@ -1,9 +1,9 @@
 /// @param asyncID
 /// @param callbackFunction
 
-function __MedalRegisterAsyncID(_asyncID, _callbackFunction)
+function __MedalRegisterSystemAsyncID(_asyncID, _callbackFunction)
 {
-    static _asyncIDMap = __MedalSystem().__asyncIDMap;
+    static _asyncIDMap = __MedalSystem().__steamAsyncIDMap;
     
     if (_asyncID == undefined)
     {

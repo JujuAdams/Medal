@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"__MedalPlayFabOnXboxRequestToken",
+  "%Name":"__MedalPlayFabXboxRequestToken",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"__MedalPlayFabOnXboxRequestToken",
+  "name":"__MedalPlayFabXboxRequestToken",
   "parent":{
     "name":"PlayFab",
-    "path":"folders/PlayFab.yy",
+    "path":"folders/Medal/(System)/PlayFab.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

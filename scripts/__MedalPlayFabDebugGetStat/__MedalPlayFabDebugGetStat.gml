@@ -1,30 +1,26 @@
-/// @param leaderboardName
-/// @param startPosition
-/// @param count
+/// @param statName
 /// @param [callback]
 
-function __MedalPlayFabGetLeaderboard(_leaderboardName, _startPosition, _count, _callback = undefined)
+function __MedalPlayFabDebugGetStat(_statisticName, _callback = undefined)
 {
     static _system = __MedalSystem();
     static _headerMap = ds_map_create();
     
     if (not _system.__playFabLoggedIn)
     {
-        __MedalWarning("Cannot get leaderboard, not logged into PlayFab");
+        __MedalWarning("Cannot get statistic, not logged into PlayFab");
     }
     
     __MedalEnsureControllerInstance();
     
     _headerMap[? "Content-Type" ] = "application/json";
     _headerMap[? "X-EntityToken"] = _system.__playFabEntityToken;
-    
+      
     var _bodyString = __MedalPlayFabJSONStringify({
-        StartingPosition: int64(_startPosition),
-        PageSize: int64(_count),
-        LeaderboardName: _leaderboardName,
+        StatisticNames: [_statisticName],
     });
     
-    var _result = http_request($"https://{MEDAL_PLAYFAB_TITLE_ID}.playfabapi.com/Leaderboard/GetLeaderboard", "POST", _headerMap, _bodyString);
+    var _result = http_request($"https://{MEDAL_PLAYFAB_TITLE_ID}.playfabapi.com/Statistic/GetStatistics", "POST", _headerMap, _bodyString);
     ds_map_clear(_headerMap);
     
     __MedalRegisterHTTPAsyncID(_result, method({
@@ -50,7 +46,7 @@ function __MedalPlayFabGetLeaderboard(_leaderboardName, _startPosition, _count, 
         
         if (_httpStatus != 200)
         {
-            __MedalWarning($"PlayFab leaderboard get received unexpected HTTP status {_httpStatus}");
+            __MedalWarning($"PlayFab statistics get received unexpected HTTP status {_httpStatus}");
             
             if (MEDAL_VERBOSE)
             {
@@ -61,7 +57,7 @@ function __MedalPlayFabGetLeaderboard(_leaderboardName, _startPosition, _count, 
         {
             if (MEDAL_VERBOSE)
             {
-                __MedalTrace($"PlayFab leaderboard get received response");
+                __MedalTrace($"PlayFab statistics get received response");
             }
             
             if (is_callable(__callback))

@@ -1,6 +1,6 @@
 var _id = async_load[? "id"];
 
-var _asyncIDMap = __MedalSystem().__asyncIDMap;
+var _asyncIDMap = __MedalSystem().__steamAsyncIDMap;
 if (ds_map_exists(_asyncIDMap, _id))
 {
     var _callback = _asyncIDMap[? _id];

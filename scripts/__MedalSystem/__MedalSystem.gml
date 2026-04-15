@@ -16,7 +16,7 @@ function __MedalSystem()
     {
         __MedalTrace($"Welcome to Medal by Juju Adams! This is version {MEDAL_VERSION}, {MEDAL_DATE}");
         
-        __definingAchievements = true;
+        __runningDefinitions = true;
         
         __localChanged = false;
         __localData = {};
@@ -26,26 +26,24 @@ function __MedalSystem()
         
         __medalToRefMap   = ds_map_create();
         __leaderboardDict = {};
-        __asyncIDMap      = ds_map_create();
+        __steamAsyncIDMap = ds_map_create();
+        __httpAsyncIDMap  = ds_map_create();
         
         __steamAvailable        = false;
         __playServicesAvailable = false;
         
         __switchNPLNUserHandle = undefined;
         
+        __playFabLoggedIn      = false;
         __playFabSessionTicket = undefined;
         __playFabEntityToken   = undefined;
-        
-        __playFabRequestToken   = undefined;
-        __playFabSessionTicket  = undefined;
-        __playFabGetEntityToken = undefined;
         
         
         var _fallback = true;
         
         if (MEDAL_FORCE_LOCAL_DATA)
         {
-            __MedalTrace($"Forcing local data use via `MEDAL_FORCE_LOCAL_DATA`, using `__MedalAchievementsLocal`");
+            __MedalTrace($"Forcing local data use via `MEDAL_FORCE_LOCAL_DATA` (__MedalAchievementsLocal / __MedalLeaderboardsLocal)");
             
             _fallback = false;
             
@@ -56,7 +54,7 @@ function __MedalSystem()
         else if (MEDAL_ON_DESKTOP)
         {
             ///////
-            // Steam
+            // Desktop
             ///////
             
             __MedalTrace(MEDAL_USING_STEAMWORKS? "Steam extension is present" : "Steam extension is not present");
@@ -71,7 +69,7 @@ function __MedalSystem()
                 
                 if (MEDAL_VERBOSE)
                 {
-                    __MedalTrace("Using Xbox remote service with `__MedalAchievementsXbox`");
+                    __MedalTrace("Using Xbox achivements (__MedalAchievementsXbox)");
                 }
                 
                 _fallback = false;
@@ -81,11 +79,13 @@ function __MedalSystem()
                 
                 if (MEDAL_USING_PLAYFAB_LEADERBOARDS)
                 {
-                    __MedalLeaderboardsXbox();
+                    __MedalTrace("Using PlayFab leaderboards with (__MedalLeaderboardsPlayFab)");
+                    __MedalLeaderboardsPlayFab();
                 }
                 else if (MEDAL_USING_XBOX_LEADERBOARDS)
                 {
-                    __MedalLeaderboardsPlayFab();
+                    __MedalTrace("Using Xbox leaderboards with (__MedalLeaderboardsXbox)");
+                    __MedalLeaderboardsXbox();
                 }
             }
             else if (MEDAL_USING_STEAMWORKS)
@@ -256,7 +256,7 @@ function __MedalSystem()
             __MedalLeaderboardsLocal();
         }
         
-        __definingAchievements = false;
+        __runningDefinitions = false;
     }
     
     return _system;

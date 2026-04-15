@@ -1,30 +1,34 @@
-/// @param leaderboardName
-/// @param startPosition
-/// @param count
+/// @param statName
+/// @param integerValue
 /// @param [callback]
 
-function __MedalPlayFabGetLeaderboard(_leaderboardName, _startPosition, _count, _callback = undefined)
+function __MedalPlayFabSetStat(_statisticName, _value, _callback = undefined)
 {
     static _system = __MedalSystem();
     static _headerMap = ds_map_create();
     
     if (not _system.__playFabLoggedIn)
     {
-        __MedalWarning("Cannot get leaderboard, not logged into PlayFab");
+        __MedalWarning("Cannot set statistic, not logged into PlayFab");
     }
     
     __MedalEnsureControllerInstance();
     
     _headerMap[? "Content-Type" ] = "application/json";
     _headerMap[? "X-EntityToken"] = _system.__playFabEntityToken;
-    
+      
     var _bodyString = __MedalPlayFabJSONStringify({
-        StartingPosition: int64(_startPosition),
-        PageSize: int64(_count),
-        LeaderboardName: _leaderboardName,
+        Statistics: [
+            {
+                Name: _statisticName,
+                Scores: [
+                    int64(_value),
+                ],
+            },
+        ],
     });
     
-    var _result = http_request($"https://{MEDAL_PLAYFAB_TITLE_ID}.playfabapi.com/Leaderboard/GetLeaderboard", "POST", _headerMap, _bodyString);
+    var _result = http_request($"https://{MEDAL_PLAYFAB_TITLE_ID}.playfabapi.com/Statistic/UpdateStatistics", "POST", _headerMap, _bodyString);
     ds_map_clear(_headerMap);
     
     __MedalRegisterHTTPAsyncID(_result, method({
@@ -36,7 +40,7 @@ function __MedalPlayFabGetLeaderboard(_leaderboardName, _startPosition, _count, 
         var _httpStatus        = async_load[? "http_status"     ];
         var _url               = async_load[? "url"             ];
         var _resultString      = async_load[? "result"          ];
-    
+        
         var _resultJSON = __MedalPlayFabJSONParse(_resultString);
         if (_resultJSON == undefined)
         {
@@ -50,7 +54,7 @@ function __MedalPlayFabGetLeaderboard(_leaderboardName, _startPosition, _count, 
         
         if (_httpStatus != 200)
         {
-            __MedalWarning($"PlayFab leaderboard get received unexpected HTTP status {_httpStatus}");
+            __MedalWarning($"PlayFab statistics set received unexpected HTTP status {_httpStatus}");
             
             if (MEDAL_VERBOSE)
             {
@@ -61,7 +65,7 @@ function __MedalPlayFabGetLeaderboard(_leaderboardName, _startPosition, _count, 
         {
             if (MEDAL_VERBOSE)
             {
-                __MedalTrace($"PlayFab leaderboard get received response");
+                __MedalTrace($"PlayFab statistics set received response");
             }
             
             if (is_callable(__callback))

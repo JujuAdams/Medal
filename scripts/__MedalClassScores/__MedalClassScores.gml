@@ -51,6 +51,12 @@ function __MedalClassScores(_scoresID, _formattedServiceRef, _range, _refreshPer
         return __GetScoresInternal(true);
     }
     
+    static __SetErrorState = function()
+    {
+        array_resize(__data, 0);
+        __state = MEDAL_LB_STATE_ERROR;
+    }
+    
     static __GetScoresInternal = function(_refresh)
     {
         if (__asyncID != undefined)
@@ -58,6 +64,8 @@ function __MedalClassScores(_scoresID, _formattedServiceRef, _range, _refreshPer
             //Pending
             return;
         }
+        
+        __lastRequestTime = current_time;
         
         if (_system.__local)
         {
@@ -84,7 +92,7 @@ function __MedalClassScores(_scoresID, _formattedServiceRef, _range, _refreshPer
                     __asyncID = steam_download_scores_around_user(__formattedServiceRef, -5, 5);
                 }
                 
-                __MedalRegisterAsyncID(__asyncID, function(_aborted)
+                __MedalRegisterSteamAsyncID(__asyncID, function(_aborted)
                 {
                     if (MEDAL_VERBOSE)
                     {
@@ -92,6 +100,7 @@ function __MedalClassScores(_scoresID, _formattedServiceRef, _range, _refreshPer
                     }
                     
                     __asyncID = undefined;
+                    array_resize(__data, 0);
                     
                     if (async_load[? "event_type"] != "leaderboard_download")
                     {
@@ -121,7 +130,7 @@ function __MedalClassScores(_scoresID, _formattedServiceRef, _range, _refreshPer
                     
                     if (_aborted)
                     {
-                        __state = MEDAL_LB_STATE_ERROR;
+                        __SetErrorState();
                     }
                     else
                     {
@@ -163,7 +172,7 @@ function __MedalClassScores(_scoresID, _formattedServiceRef, _range, _refreshPer
                     __asyncID = GameCenter_Leaderboard_LoadFriendsOnly(__formattedServiceRef, _timeScope, 1, 10);
                 }
                 
-                __MedalRegisterAsyncID(__asyncID, function(_aborted)
+                __MedalRegisterSteamAsyncID(__asyncID, function(_aborted)
                 {
                     if (MEDAL_VERBOSE)
                     {
@@ -171,12 +180,13 @@ function __MedalClassScores(_scoresID, _formattedServiceRef, _range, _refreshPer
                     }
                     
                     __asyncID = undefined;
+                    array_resize(__data, 0);
                     
                     //TODO
                     
                     if (_aborted)
                     {
-                        __state = MEDAL_LB_STATE_ERROR;
+                        __SetErrorState();
                     }
                     else
                     {
@@ -216,7 +226,7 @@ function __MedalClassScores(_scoresID, _formattedServiceRef, _range, _refreshPer
                     __asyncID = GooglePlayServices_Leaderboard_LoadPlayerCenteredScores(__formattedServiceRef, _timeScope, Leaderboard_COLLECTION_PUBLIC, 10, _refresh);
                 }
                 
-                __MedalRegisterAsyncID(__asyncID, function(_aborted)
+                __MedalRegisterSteamAsyncID(__asyncID, function(_aborted)
                 {
                     if (MEDAL_VERBOSE)
                     {
@@ -224,18 +234,125 @@ function __MedalClassScores(_scoresID, _formattedServiceRef, _range, _refreshPer
                     }
                     
                     __asyncID = undefined;
+                    array_resize(__data, 0);
                     
                     //TODO
                     
                     if (_aborted)
                     {
-                        __state = MEDAL_LB_STATE_ERROR;
+                        __SetErrorState();
                     }
                     else
                     {
                         __state = MEDAL_LB_STATE_SUCCESS;
                     }
                 });
+            }
+            else if (MEDAL_USING_PLAYFAB_LEADERBOARDS)
+            {
+                ///////
+                // PlayFab
+                ///////
+                
+                if (_system.__xboxUser < 0)
+                {
+                    __MedalSoftError("Xbox user not set or invalid. Please set the Xbox user with `MedalSetXboxUser()` before fetching leaderboard scores");
+                }
+                else if (not _system.__playFabLoggedIn)
+                {
+                    __MedalWarning("Cannot get leaderboard, PlayFab login pending or failed");
+                }
+                else
+                {
+                    var _callbackFunction = function(_leaderboardData)
+                    {
+                        if (MEDAL_VERBOSE)
+                        {
+                            __MedalTrace($"Received leaderboard data for \"{__formattedServiceRef}\" using range `{__range}`");
+                        }
+                        
+                        __asyncID = undefined;
+                        array_resize(__data, 0);
+                        
+                        if (_leaderboardData == undefined)
+                        {
+                            __SetErrorState();
+                        }
+                        else
+                        {
+                            try
+                            {
+                                var _dataStatus    = _leaderboardData.status;
+                                var _rankingsArray = _leaderboardData.data.Rankings;
+                            }
+                            catch(_error)
+                            {
+                                if (MEDAL_VERBOSE)
+                                {
+                                    show_debug_message(json_stringify(_leaderboardData, true));
+                                    show_debug_message(_error);
+                                }
+                                
+                                __MedalWarning($"Failed to find expected data in returned leaderboard data \"{__formattedServiceRef}\"");
+                                
+                                __SetErrorState();
+                                return;
+                            }
+                            
+                            if (_dataStatus != "OK")
+                            {
+                                __MedalWarning($"Leaderboard data \"{__formattedServiceRef}\" returned as not \"OK\"");
+                                
+                                __SetErrorState();
+                                return;
+                            }
+                            
+                            try
+                            {
+                                var _i = 0;
+                                repeat(array_length(_rankingsArray))
+                                {
+                                    var _ranking = _rankingsArray[_i];
+                                    array_push(__data, new __MedalClassRanking(_ranking.DisplayName, _ranking.Scores[0], _ranking.Rank));
+                                    ++_i;
+                                }
+                            }
+                            catch(_error)
+                            {
+                                if (MEDAL_VERBOSE)
+                                {
+                                    show_debug_message(_error);
+                                }
+                                
+                                __MedalWarning($"Leaderboard data \"{__formattedServiceRef}\" failed to parse");
+                                
+                                __SetErrorState();
+                                return;
+                            }
+                            
+                            if (MEDAL_VERBOSE)
+                            {
+                                show_debug_message(json_stringify(__data, true));
+                                __MedalTrace($"Leaderboard data \"{__formattedServiceRef}\" parsed successfully");
+                            }
+                            
+                            __state = MEDAL_LB_STATE_SUCCESS;
+                        }
+                    }
+                    
+                    if (__range == MEDAL_RANGE_TOP)
+                    {
+                        __asyncID = __MedalPlayFabGetLeaderboard(__formattedServiceRef, 1, 10, _callbackFunction);
+                    }
+                    else if (__range == MEDAL_RANGE_FRIENDS)
+                    {
+                        __asyncID = __MedalPlayFabGetLeaderboardFriends(__formattedServiceRef, 1, 10, _callbackFunction);
+                    }
+                    else if (__range == MEDAL_RANGE_AROUND)
+                    {
+                        __asyncID = __MedalPlayFabGetLeaderboardAround(__formattedServiceRef, 1, 10, _callbackFunction);
+                    }
+                }
             }
             else if (MEDAL_USING_GDK)
             {
@@ -262,7 +379,7 @@ function __MedalClassScores(_scoresID, _formattedServiceRef, _range, _refreshPer
                         __asyncID = xboxone_stats_get_leaderboard(_system.__xboxUser, __formattedServiceRef, 10, 0, true, not __leaderboard.__higherValueIsBetter);
                     }
                     
-                    __MedalRegisterAsyncID(__asyncID, function(_aborted)
+                    __MedalRegisterSteamAsyncID(__asyncID, function(_aborted)
                     {
                         if (MEDAL_VERBOSE)
                         {
@@ -270,12 +387,13 @@ function __MedalClassScores(_scoresID, _formattedServiceRef, _range, _refreshPer
                         }
                         
                         __asyncID = undefined;
+                        array_resize(__data, 0);
                         
                         //TODO
                         
                         if (_aborted)
                         {
-                            __state = MEDAL_LB_STATE_ERROR;
+                            __SetErrorState();
                         }
                         else
                         {
@@ -309,7 +427,7 @@ function __MedalClassScores(_scoresID, _formattedServiceRef, _range, _refreshPer
                         __asyncID = psn_get_leaderboard_score_range(_system.__psGamepad, __formattedServiceRef, 1, 10);
                     }
                     
-                    __MedalRegisterAsyncID(__asyncID, function(_aborted)
+                    __MedalRegisterSteamAsyncID(__asyncID, function(_aborted)
                     {
                         if (MEDAL_VERBOSE)
                         {
@@ -317,12 +435,13 @@ function __MedalClassScores(_scoresID, _formattedServiceRef, _range, _refreshPer
                         }
                         
                         __asyncID = undefined;
+                        array_resize(__data, 0);
                         
                         //TODO
                         
                         if (_aborted)
                         {
-                            __state = MEDAL_LB_STATE_ERROR;
+                            __SetErrorState();
                         }
                         else
                         {
@@ -360,7 +479,7 @@ function __MedalClassScores(_scoresID, _formattedServiceRef, _range, _refreshPer
                                                                             10);
                     }
                     
-                    __MedalRegisterAsyncID(__asyncID, function(_aborted)
+                    __MedalRegisterSteamAsyncID(__asyncID, function(_aborted)
                     {
                         if (MEDAL_VERBOSE)
                         {
@@ -368,12 +487,13 @@ function __MedalClassScores(_scoresID, _formattedServiceRef, _range, _refreshPer
                         }
                         
                         __asyncID = undefined;
+                        array_resize(__data, 0);
                         
                         //TODO
                         
                         if (_aborted)
                         {
-                            __state = MEDAL_LB_STATE_ERROR;
+                            __SetErrorState();
                         }
                         else
                         {
@@ -382,7 +502,7 @@ function __MedalClassScores(_scoresID, _formattedServiceRef, _range, _refreshPer
                     });
                 }
                 
-                __state = MEDAL_LB_STATE_ERROR;
+                __SetErrorState();
             }
             else
             {
@@ -393,10 +513,12 @@ function __MedalClassScores(_scoresID, _formattedServiceRef, _range, _refreshPer
             {
                 if (__state != MEDAL_LB_STATE_ERROR)
                 {
-                    __MedalTrace($"Started leaderboard fetch for \"{__formattedServiceRef}\" using range `{__range}`");
+                    if (MEDAL_VERBOSE)
+                    {
+                        __MedalTrace($"Started leaderboard fetch for \"{__formattedServiceRef}\" using range `{__range}`");
+                    }
                     
                     __state = MEDAL_LB_STATE_PENDING;
-                    __lastRequestTime = current_time;
                 }
             }
         }
