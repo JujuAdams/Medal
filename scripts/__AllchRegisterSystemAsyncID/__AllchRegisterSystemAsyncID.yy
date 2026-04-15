@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"__AllchRegisterSystemAsyncID",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__AllchRegisterSystemAsyncID",
+  "parent":{
+    "name":"(System)",
+    "path":"folders/Allchievements/(System).yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"__AllchEnsureControllerInstance",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__AllchEnsureControllerInstance",
+  "parent":{
+    "name":"(System)",
+    "path":"folders/Allchievements/(System).yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"__AllchConfig",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__AllchConfig",
+  "parent":{
+    "name":"Allchievements",
+    "path":"folders/Allchievements.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

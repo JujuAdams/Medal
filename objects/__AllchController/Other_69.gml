@@ -1,0 +1,10 @@
+var _id = async_load[? "id"];
+
+var _asyncIDMap = __AllchSystem().__steamAsyncIDMap;
+if (ds_map_exists(_asyncIDMap, _id))
+{
+    var _callback = _asyncIDMap[? _id];
+    ds_map_delete(_asyncIDMap, _id);
+    
+    _callback(false);
+}

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"__AllchWarning",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__AllchWarning",
+  "parent":{
+    "name":"Debug",
+    "path":"folders/Allchievements/(System)/Debug.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
