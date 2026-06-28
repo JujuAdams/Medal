@@ -26,6 +26,7 @@ function __AllchSystem()
         
         __xboxReferenceToIdent = ds_map_create();
         __xboxQueue = [];
+        __xboxLastRequest = -infinity;
         
         __configMap   = ds_map_create();
         __configOrder = [];
@@ -219,10 +220,17 @@ function __AllchSystem()
                 AllchControllerObject.persistent = true;
             }
             
-            var _queueTop = array_pop(__xboxQueue);
-            if (is_struct(_queueTop))
+            if (ALLCH_USING_GDK)
             {
-                xboxone_achievements_set_progress(_queueTop.__userID, _queueTop.__ref, _queueTop.__percentage);
+                if (current_time - __xboxLastRequest > ALLCH_GDK_PROGRESS_PERIOD)
+                {
+                    var _queueTop = array_pop(__xboxQueue);
+                    if (is_struct(_queueTop))
+                    {
+                        xboxone_achievements_set_progress(_queueTop.__userID, _queueTop.__ref, _queueTop.__percentage);
+                        __xboxLastRequest = current_time;
+                    }
+                }
             }
         },
         [], -1));

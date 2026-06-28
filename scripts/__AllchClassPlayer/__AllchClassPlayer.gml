@@ -90,7 +90,6 @@ function __AllchClassPlayer(_playerID = undefined) constructor
                     __AllchTrace($"Awarding achievement `{_identifier}`");
                 }
                 
-                _progressStruct.__unlocked = true;
                 _newlyUnlocked = true;
             }
         }
@@ -130,6 +129,8 @@ function __AllchClassPlayer(_playerID = undefined) constructor
                     {
                         //Immediately award an achievement if it's newly unlocked
                         xboxone_achievements_set_progress(__playerID, _config.xbox, 100);
+                        _system.__xboxLastRequest = current_time;
+                        
                         __AllchDequeueXboxAchievement(__playerID, _config.xbox);
                     }
                     else if (not _unlocked)

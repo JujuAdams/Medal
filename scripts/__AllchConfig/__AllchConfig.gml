@@ -34,3 +34,6 @@ function __AllchConfigOnBoot()
 /// Whether warning messages should have callstacks. This will not disable callstacks on error
 /// messages.
 #macro ALLCH_WARNINGS_HAVE_CALLSTACKS  true
+
+/// Milliseconds between calls to `xboxone_achievements_set_progress()`.
+#macro ALLCH_GDK_PROGRESS_PERIOD  1_500
