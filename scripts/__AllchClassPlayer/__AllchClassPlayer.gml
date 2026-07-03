@@ -8,13 +8,13 @@ function __AllchClassPlayer(_playerID = undefined) constructor
     __playerID = _playerID;
     __progressMap = ds_map_create();
     __dataChanged = false;
-    __ready = not ALLCH_USING_GDK;
+    __ready = not ALLCH_ON_XBOX_SERIES;
     
     if (ALLCH_ON_PS5)
     {
         psn_init_trophy(__playerID);
     }
-    else if (ALLCH_USING_GDK)
+    else if (ALLCH_ON_XBOX_SERIES)
     {
         xboxone_get_achievements(_playerID);
     }
